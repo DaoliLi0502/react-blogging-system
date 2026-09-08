@@ -1,7 +1,21 @@
+const fs = require("fs/promises");
 const express = require("express");
+const multer = require("multer");
 const dbPromise = require("../db");
+const {
+    authMiddleware,
+    optionalAuthMiddleware
+} = require("../middleware/authMiddleware");
+const {
+    createArticleSchema,
+    updateArticleSchema
+} = require("../validation/articleValidation");
 
 const router = express.Router();
+
+const upload = multer({
+    dest: "uploads/"
+});
 
 router.get("/articles", async (req, res) => {
     const {
@@ -109,6 +123,409 @@ router.get("/articles", async (req, res) => {
         console.error(error);
 
         res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+});
+
+router.get("/articles/me", authMiddleware, async (req, res) => {
+    try {
+        const db = await dbPromise;
+
+        const query = `
+            SELECT
+                a.article_id,
+                a.title,
+                a.content,
+                a.image_path,
+                a.author_id,
+                u.username,
+                a.created_at
+            FROM articles a
+            JOIN users u
+                ON a.author_id = u.user_id
+            WHERE a.author_id = ?
+            ORDER BY a.created_at DESC
+        `;
+
+        const articles = await db.all(query, [req.user.user_id]);
+
+        return res.status(200).json({
+            articles
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+});
+
+router.post("/articles", authMiddleware, upload.single("image"), async (req, res) => {
+
+    try {
+
+        const validatedData = await createArticleSchema.validate(req.body, {
+            abortEarly: true,
+            stripUnknown: true
+        });
+
+        const { title, content } = validatedData;
+
+        const db = await dbPromise;
+
+        const imagePath = req.file
+            ? req.file.path
+            : null;
+
+        const result = await db.run(
+            `INSERT INTO articles (
+                title,
+                content,
+                image_path,
+                author_id
+            )
+            VALUES (?, ?, ?, ?)`,
+            title,
+            content,
+            imagePath,
+            req.user.user_id
+        );
+
+        const articleId = result.lastID;
+
+        const subscribers = await db.all(
+            `SELECT subscriber_id
+             FROM user_subscriptions
+             WHERE subscribed_user_id = ?`,
+            req.user.user_id
+        );
+
+        for (const subscriber of subscribers) {
+
+            await db.run(
+                `INSERT INTO subscription_notifications (
+                    user_id,
+                    article_id
+                )
+                VALUES (?, ?)`,
+                subscriber.subscriber_id,
+                articleId
+            );
+        }
+
+        return res.status(201).json({
+            message: "Article created successfully",
+            article: {
+                article_id: articleId,
+                title,
+                content,
+                image_path: imagePath,
+                author_id: req.user.user_id
+            }
+        });
+
+    } catch (error) {
+
+        if (error.name === "ValidationError") {
+
+            return res.status(400).json({
+                message: error.message
+            });
+        }
+
+        console.error(error);
+
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+});
+
+router.put("/articles/:aid", authMiddleware, upload.single("image"), async (req, res) => {
+
+    try {
+
+        const validatedData = await updateArticleSchema.validate(req.body, {
+            abortEarly: true,
+            stripUnknown: true
+        });
+
+        const { title, content, remove_image } = validatedData;
+
+        const db = await dbPromise;
+
+        const article = await db.get(
+            `SELECT *
+             FROM articles
+             WHERE article_id = ?`,
+            req.params.aid
+        );
+
+        if (!article) {
+
+            return res.status(404).json({
+                message: "Article not found"
+            });
+        }
+
+        if (article.author_id !== req.user.user_id) {
+
+            return res.status(403).json({
+                message: "Forbidden"
+            });
+        }
+
+        let imagePath = article.image_path;
+
+        if (req.file) {
+
+            if (article.image_path) {
+
+                try {
+                    await fs.unlink(article.image_path);
+                } catch (error) {
+
+                    if (error.code !== "ENOENT") {
+                        throw error;
+                    }
+                }
+            }
+
+            imagePath = req.file.path;
+
+        } else if (remove_image) {
+
+            if (article.image_path) {
+
+                try {
+                    await fs.unlink(article.image_path);
+                } catch (error) {
+
+                    if (error.code !== "ENOENT") {
+                        throw error;
+                    }
+                }
+            }
+
+            imagePath = null;
+        }
+
+        await db.run(
+            `UPDATE articles
+             SET title = ?,
+                 content = ?,
+                 image_path = ?
+             WHERE article_id = ?`,
+            title,
+            content,
+            imagePath,
+            req.params.aid
+        );
+
+        return res.status(200).json({
+            message: "Article updated successfully",
+            article: {
+                article_id: article.article_id,
+                title,
+                content,
+                image_path: imagePath,
+                author_id: article.author_id,
+                created_at: article.created_at
+            }
+        });
+
+    } catch (error) {
+
+        if (error.name === "ValidationError") {
+
+            return res.status(400).json({
+                message: error.message
+            });
+        }
+
+        console.error(error);
+
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+});
+
+router.delete("/articles/:aid", authMiddleware, async (req, res) => {
+
+    try {
+
+        const db = await dbPromise;
+
+        const article = await db.get(
+            `SELECT *
+             FROM articles
+             WHERE article_id = ?`,
+            req.params.aid
+        );
+
+        if (!article) {
+
+            return res.status(404).json({
+                message: "Article not found"
+            });
+        }
+
+        if (article.author_id !== req.user.user_id) {
+
+            return res.status(403).json({
+                message: "Forbidden"
+            });
+        }
+
+        if (article.image_path) {
+
+            try {
+                await fs.unlink(article.image_path);
+            } catch (error) {
+
+                if (error.code !== "ENOENT") {
+                    throw error;
+                }
+            }
+        }
+
+        await db.run(
+            `DELETE FROM articles
+             WHERE article_id = ?`,
+            req.params.aid
+        );
+
+        return res.status(204).send();
+
+    } catch (error) {
+
+        console.error(error);
+
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+});
+
+router.post("/articles/:aid/likes", authMiddleware, async (req, res) => {
+
+    try {
+
+        const db = await dbPromise;
+
+        const article = await db.get(
+            `SELECT article_id
+             FROM articles
+             WHERE article_id = ?`,
+            req.params.aid
+        );
+
+        if (!article) {
+
+            return res.status(404).json({
+                message: "Article not found"
+            });
+        }
+
+        const existingLike = await db.get(
+            `SELECT *
+             FROM article_likes
+             WHERE user_id = ?
+               AND article_id = ?`,
+            req.user.user_id,
+            req.params.aid
+        );
+
+        if (existingLike) {
+
+            return res.status(409).json({
+                message: "Article already liked"
+            });
+        }
+
+        await db.run(
+            `INSERT INTO article_likes (
+                user_id,
+                article_id
+            )
+            VALUES (?, ?)`,
+            req.user.user_id,
+            req.params.aid
+        );
+
+        return res.status(201).json({
+            message: "Article liked successfully"
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+});
+
+router.get("/articles/:aid/likes", optionalAuthMiddleware, async (req, res) => {
+
+    try {
+
+        const db = await dbPromise;
+
+        const article = await db.get(
+            `SELECT *
+             FROM articles
+             WHERE article_id = ?`,
+            req.params.aid
+        );
+
+        if (!article) {
+
+            return res.status(404).json({
+                message: "Article not found"
+            });
+        }
+
+        const result = await db.get(
+            `SELECT COUNT(*) AS count
+             FROM article_likes
+             WHERE article_id = ?`,
+            req.params.aid
+        );
+
+        let likedByMe = false;
+
+        if (req.user) {
+
+            const like = await db.get(
+                `SELECT *
+                 FROM article_likes
+                 WHERE user_id = ?
+                   AND article_id = ?`,
+                req.user.user_id,
+                req.params.aid
+            );
+
+            if (like) {
+                likedByMe = true;
+            }
+        }
+
+        return res.status(200).json({
+            count: result.count,
+            liked_by_me: likedByMe
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        return res.status(500).json({
             message: "Internal server error"
         });
     }

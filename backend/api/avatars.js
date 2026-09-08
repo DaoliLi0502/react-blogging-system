@@ -3,7 +3,6 @@ const dbPromise = require("../db");
 
 const router = express.Router();
 
-// Get all avatars
 router.get("/avatars", async (req, res) => {
     try {
         const db = await dbPromise;
