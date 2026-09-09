@@ -5,6 +5,7 @@ const dbPromise = require("./db");
 const articleRoutes = require("./api/articles");
 const authRoutes = require("./api/auth");
 const avatarRoutes = require("./api/avatars");
+const tagRoutes = require("./api/tags");
 const userRoutes = require("./api/users");
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(cookieParser());
 app.use("/api", articleRoutes);
 app.use("/api", authRoutes);
 app.use("/api", avatarRoutes);
+app.use("/api", tagRoutes);
 app.use("/api", userRoutes);
 
 const PORT = 3000;
