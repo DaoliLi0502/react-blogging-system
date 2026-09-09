@@ -6,6 +6,7 @@ const articleRoutes = require("./api/articles");
 const authRoutes = require("./api/auth");
 const avatarRoutes = require("./api/avatars");
 const notificationRoutes = require("./api/notifications");
+const subscriptionRoutes = require("./api/subscriptions");
 const tagRoutes = require("./api/tags");
 const userRoutes = require("./api/users");
 
@@ -19,8 +20,11 @@ app.use("/api", articleRoutes);
 app.use("/api", authRoutes);
 app.use("/api", avatarRoutes);
 app.use("/api", notificationRoutes);
+app.use("/api", subscriptionRoutes);
 app.use("/api", tagRoutes);
 app.use("/api", userRoutes);
+
+app.use("/uploads", express.static("uploads"));
 
 const PORT = 3000;
 
