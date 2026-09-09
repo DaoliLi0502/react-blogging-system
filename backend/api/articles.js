@@ -10,6 +10,7 @@ const {
     createArticleSchema,
     updateArticleSchema
 } = require("../validation/articleValidation");
+const createCommentSchema = require("../validation/commentValidation");
 
 const router = express.Router();
 
@@ -725,6 +726,219 @@ router.delete("/articles/:aid/tags/:tid", authMiddleware, async (req, res) => {
                AND tag_id = ?`,
             req.params.aid,
             req.params.tid
+        );
+
+        return res.status(204).send();
+
+    } catch (error) {
+
+        console.error(error);
+
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+});
+
+router.post("/articles/:aid/comments", authMiddleware, async (req, res) => {
+
+    try {
+
+        const validatedData = await createCommentSchema.validate(req.body, {
+            abortEarly: true,
+            stripUnknown: true
+        });
+
+        const { content } = validatedData;
+
+        const db = await dbPromise;
+
+        const article = await db.get(
+            `SELECT *
+             FROM articles
+             WHERE article_id = ?`,
+            req.params.aid
+        );
+
+        if (!article) {
+
+            return res.status(404).json({
+                message: "Article not found"
+            });
+        }
+
+        const result = await db.run(
+            `INSERT INTO comments (
+                article_id,
+                user_id,
+                content
+            )
+            VALUES (?, ?, ?)`,
+            req.params.aid,
+            req.user.user_id,
+            content
+        );
+
+        const commentId = result.lastID;
+
+        const mentions = content.match(/@[a-zA-Z0-9_]+/g) || [];
+
+        const usernames = [];
+
+        for (const mention of mentions) {
+
+            const username = mention.substring(1);
+
+            if (!usernames.includes(username)) {
+                usernames.push(username);
+            }
+        }
+
+        for (const username of usernames) {
+
+            const user = await db.get(
+                `SELECT user_id
+                 FROM users
+                 WHERE username = ?`,
+                username
+            );
+
+            if (user) {
+
+                await db.run(
+                    `INSERT INTO comment_notifications (
+                        user_id,
+                        comment_id
+                    )
+                    VALUES (?, ?)`,
+                    user.user_id,
+                    commentId
+                );
+            }
+        }
+
+        return res.status(201).json({
+            message: "Comment created successfully",
+            comment: {
+                comment_id: commentId,
+                article_id: req.params.aid,
+                user_id: req.user.user_id,
+                content
+            }
+        });
+
+    } catch (error) {
+
+        if (error.name === "ValidationError") {
+
+            return res.status(400).json({
+                message: error.message
+            });
+        }
+
+        console.error(error);
+
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+});
+
+router.get("/articles/:aid/comments", async (req, res) => {
+
+    try {
+
+        const db = await dbPromise;
+
+        const article = await db.get(
+            `SELECT *
+             FROM articles
+             WHERE article_id = ?`,
+            req.params.aid
+        );
+
+        if (!article) {
+
+            return res.status(404).json({
+                message: "Article not found"
+            });
+        }
+
+        const comments = await db.all(
+            `SELECT
+                c.comment_id,
+                c.article_id,
+                c.user_id,
+                u.username,
+                a.avatar_id,
+                a.image_path AS avatar_path,
+                c.content,
+                c.created_at
+             FROM comments c
+             JOIN users u
+                 ON c.user_id = u.user_id
+             LEFT JOIN avatars a
+                 ON u.avatar_id = a.avatar_id
+             WHERE c.article_id = ?
+             ORDER BY c.created_at ASC`,
+            req.params.aid
+        );
+
+        return res.status(200).json({
+            comments
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+});
+
+router.delete("/articles/:aid/comments/:cid", authMiddleware, async (req, res) => {
+
+    try {
+
+        const db = await dbPromise;
+
+        const comment = await db.get(
+            `SELECT *
+             FROM comments
+             WHERE comment_id = ?
+               AND article_id = ?`,
+            req.params.cid,
+            req.params.aid
+        );
+
+        if (!comment) {
+
+            return res.status(404).json({
+                message: "Comment not found"
+            });
+        }
+
+        const article = await db.get(
+            `SELECT author_id
+             FROM articles
+             WHERE article_id = ?`,
+            req.params.aid
+        );
+
+        if (comment.user_id !== req.user.user_id &&
+            article.author_id !== req.user.user_id) {
+
+            return res.status(403).json({
+                message: "Forbidden"
+            });
+        }
+
+        await db.run(
+            `DELETE FROM comments
+             WHERE comment_id = ?`,
+            req.params.cid
         );
 
         return res.status(204).send();
