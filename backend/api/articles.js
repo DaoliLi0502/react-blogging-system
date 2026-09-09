@@ -531,4 +531,212 @@ router.get("/articles/:aid/likes", optionalAuthMiddleware, async (req, res) => {
     }
 });
 
+router.delete("/articles/:aid/likes", authMiddleware, async (req, res) => {
+
+    try {
+
+        const db = await dbPromise;
+
+        const article = await db.get(
+            `SELECT *
+             FROM articles
+             WHERE article_id = ?`,
+            req.params.aid
+        );
+
+        if (!article) {
+
+            return res.status(404).json({
+                message: "Article not found"
+            });
+        }
+
+        const like = await db.get(
+            `SELECT *
+             FROM article_likes
+             WHERE user_id = ?
+               AND article_id = ?`,
+            req.user.user_id,
+            req.params.aid
+        );
+
+        if (!like) {
+
+            return res.status(404).json({
+                message: "Like not found"
+            });
+        }
+
+        await db.run(
+            `DELETE FROM article_likes
+             WHERE user_id = ?
+               AND article_id = ?`,
+            req.user.user_id,
+            req.params.aid
+        );
+
+        return res.status(204).send();
+
+    } catch (error) {
+
+        console.error(error);
+
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+});
+
+router.post("/articles/:aid/tags", authMiddleware, async (req, res) => {
+
+    try {
+
+        const db = await dbPromise;
+
+        const article = await db.get(
+            `SELECT *
+             FROM articles
+             WHERE article_id = ?`,
+            req.params.aid
+        );
+
+        if (!article) {
+
+            return res.status(404).json({
+                message: "Article not found"
+            });
+        }
+
+        if (article.author_id !== req.user.user_id) {
+
+            return res.status(403).json({
+                message: "Forbidden"
+            });
+        }
+
+        const { tag_ids } = req.body;
+
+        if (!Array.isArray(tag_ids) || tag_ids.length === 0) {
+
+            return res.status(400).json({
+                message: "tag_ids must be a non-empty array"
+            });
+        }
+
+        for (const tagId of tag_ids) {
+
+            const tag = await db.get(
+                `SELECT *
+                 FROM tags
+                 WHERE tag_id = ?`,
+                tagId
+            );
+
+            if (!tag) {
+
+                return res.status(404).json({
+                    message: `Tag ${tagId} not found`
+                });
+            }
+
+            const existingTag = await db.get(
+                `SELECT *
+                 FROM article_tags
+                 WHERE article_id = ?
+                   AND tag_id = ?`,
+                req.params.aid,
+                tagId
+            );
+
+            if (!existingTag) {
+
+                await db.run(
+                    `INSERT INTO article_tags (
+                        article_id,
+                        tag_id
+                    )
+                    VALUES (?, ?)`,
+                    req.params.aid,
+                    tagId
+                );
+            }
+        }
+
+        return res.status(201).json({
+            message: "Tags added successfully"
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+});
+
+router.delete("/articles/:aid/tags/:tid", authMiddleware, async (req, res) => {
+
+    try {
+
+        const db = await dbPromise;
+
+        const article = await db.get(
+            `SELECT *
+             FROM articles
+             WHERE article_id = ?`,
+            req.params.aid
+        );
+
+        if (!article) {
+
+            return res.status(404).json({
+                message: "Article not found"
+            });
+        }
+
+        if (article.author_id !== req.user.user_id) {
+
+            return res.status(403).json({
+                message: "Forbidden"
+            });
+        }
+
+        const articleTag = await db.get(
+            `SELECT *
+             FROM article_tags
+             WHERE article_id = ?
+               AND tag_id = ?`,
+            req.params.aid,
+            req.params.tid
+        );
+
+        if (!articleTag) {
+
+            return res.status(404).json({
+                message: "Tag not found on this article"
+            });
+        }
+
+        await db.run(
+            `DELETE FROM article_tags
+             WHERE article_id = ?
+               AND tag_id = ?`,
+            req.params.aid,
+            req.params.tid
+        );
+
+        return res.status(204).send();
+
+    } catch (error) {
+
+        console.error(error);
+
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+});
+
 module.exports = router;
