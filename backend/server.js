@@ -5,6 +5,7 @@ const dbPromise = require("./db");
 const articleRoutes = require("./api/articles");
 const authRoutes = require("./api/auth");
 const avatarRoutes = require("./api/avatars");
+const notificationRoutes = require("./api/notifications");
 const tagRoutes = require("./api/tags");
 const userRoutes = require("./api/users");
 
@@ -17,6 +18,7 @@ app.use(cookieParser());
 app.use("/api", articleRoutes);
 app.use("/api", authRoutes);
 app.use("/api", avatarRoutes);
+app.use("/api", notificationRoutes);
 app.use("/api", tagRoutes);
 app.use("/api", userRoutes);
 
