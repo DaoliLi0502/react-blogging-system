@@ -129,6 +129,48 @@ router.get("/articles", async (req, res) => {
     }
 });
 
+router.get("/articles/:aid", async (req, res) => {
+
+    try {
+        const db = await dbPromise;
+
+        const article = await db.get(
+            `SELECT
+                a.article_id,
+                a.title,
+                a.content,
+                a.image_path,
+                a.author_id,
+                u.username,
+                a.created_at
+             FROM articles a
+             JOIN users u
+                 ON a.author_id = u.user_id
+             WHERE a.article_id = ?`,
+            req.params.aid
+        );
+
+        if (!article) {
+
+            return res.status(404).json({
+                message: "Article not found"
+            });
+        }
+
+        return res.status(200).json({
+            article
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+});
+
 router.get("/articles/me", authMiddleware, async (req, res) => {
     try {
         const db = await dbPromise;

@@ -15,3 +15,33 @@ INSERT INTO users (
     NULL,
     0
 );
+
+INSERT INTO articles (
+    title,
+    content,
+    author_id
+) VALUES (
+    'My First Article',
+    'This is my first article.',
+    2
+);
+
+INSERT INTO articles (
+    title,
+    content,
+    author_id
+) VALUES (
+    'Learning React',
+    'I am learning React and building a blogging system.',
+    2
+);
+
+INSERT INTO articles (
+    title,
+    content,
+    author_id
+) VALUES (
+    'Hello World',
+    'Hello, this is a test article.',
+    1
+);
