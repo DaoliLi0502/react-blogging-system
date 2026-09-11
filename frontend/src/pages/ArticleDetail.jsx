@@ -8,6 +8,8 @@ function ArticleDetail() {
     const [article, setArticle] = useState(null);
     const [likeCount, setLikeCount] = useState(0);
     const [likedByMe, setLikedByMe] = useState(false);
+    const [subscriberCount, setSubscriberCount] = useState(0);
+    const [subscribedByMe, setSubscribedByMe] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
     const fetchArticle = async () => {
@@ -17,11 +19,17 @@ function ArticleDetail() {
                 `http://localhost:3000/api/articles/${aid}`
             );
 
-            setArticle(response.data.article);
+            const articleData = response.data.article;
+
+            setArticle(articleData);
+
+            return articleData;
 
         } catch (error) {
 
             setErrorMessage(error.response.data.message);
+
+            return null;
         }
     };
 
@@ -35,12 +43,43 @@ function ArticleDetail() {
                 }
             );
 
-            setLikeCount(response.data.count);
-            setLikedByMe(response.data.liked_by_me);
+            const likesData = response.data;
+
+            setLikeCount(likesData.count);
+            setLikedByMe(likesData.liked_by_me);
+
+            return likesData;
 
         } catch (error) {
 
             setErrorMessage(error.response.data.message);
+
+            return null;
+        }
+    };
+
+    const fetchSubscription = async (authorId) => {
+
+        try {
+            const response = await axios.get(
+                `http://localhost:3000/api/users/${authorId}/subscriptions`,
+                {
+                    withCredentials: true
+                }
+            );
+
+            const subscriptionData = response.data;
+
+            setSubscriberCount(subscriptionData.count);
+            setSubscribedByMe(subscriptionData.subscribed_by_me);
+
+            return subscriptionData;
+
+        } catch (error) {
+
+            setErrorMessage(error.response.data.message);
+
+            return null;
         }
     };
 
@@ -56,8 +95,6 @@ function ArticleDetail() {
                     }
                 );
 
-                await fetchLikes();
-
             } else {
 
                 await axios.post(
@@ -67,9 +104,42 @@ function ArticleDetail() {
                         withCredentials: true
                     }
                 );
-
-                await fetchLikes();
             }
+
+            await fetchLikes();
+
+        } catch (error) {
+
+            setErrorMessage(error.response.data.message);
+        }
+    };
+
+    const handleSubscription = async () => {
+
+        try {
+            if (subscribedByMe) {
+
+                await axios.delete(
+                    `http://localhost:3000/api/subscriptions/${article.author_id}`,
+                    {
+                        withCredentials: true
+                    }
+                );
+
+            } else {
+
+                await axios.post(
+                    "http://localhost:3000/api/subscriptions",
+                    {
+                        subscribed_user_id: article.author_id
+                    },
+                    {
+                        withCredentials: true
+                    }
+                );
+            }
+
+            await fetchSubscription(article.author_id);
 
         } catch (error) {
 
@@ -79,8 +149,32 @@ function ArticleDetail() {
 
     useEffect(() => {
 
-        fetchArticle();
-        fetchLikes();
+        const fetchData = async () => {
+
+            setErrorMessage("");
+
+            const articleData = await fetchArticle();
+
+            if (!articleData) {
+                return;
+            }
+
+            const likesData = await fetchLikes();
+
+            if (!likesData) {
+                return;
+            }
+
+            const subscriptionData = await fetchSubscription(
+                articleData.author_id
+            );
+
+            if (!subscriptionData) {
+                return;
+            }
+        };
+
+        fetchData();
 
     }, [aid]);
 
@@ -101,19 +195,39 @@ function ArticleDetail() {
                         />
                     )}
 
-                    <p>{article.content}</p>
-
-                    <p>Likes: {likeCount}</p>
-
-                    {likedByMe ? (
-                        <button onClick={handleLike}>Unlike</button>
-                    ) : (
-                        <button onClick={handleLike}>Like</button>
-                    )}
+                    <div
+                        dangerouslySetInnerHTML={{
+                            __html: article.content
+                        }}
+                    />
 
                     <p>Author: {article.username}</p>
 
                     <p>Date: {article.created_at}</p>
+
+                    <p>Likes: {likeCount}</p>
+
+                    {likedByMe ? (
+                        <button onClick={handleLike}>
+                            Unlike
+                        </button>
+                    ) : (
+                        <button onClick={handleLike}>
+                            Like
+                        </button>
+                    )}
+
+                    <p>Subscribers: {subscriberCount}</p>
+
+                    {subscribedByMe ? (
+                        <button onClick={handleSubscription}>
+                            Unsubscribe
+                        </button>
+                    ) : (
+                        <button onClick={handleSubscription}>
+                            Subscribe
+                        </button>
+                    )}
                 </div>
             )}
         </div>

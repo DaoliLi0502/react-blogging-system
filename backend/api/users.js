@@ -1,7 +1,10 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const dbPromise = require("../db");
-const { authMiddleware } = require("../middleware/authMiddleware");
+const {
+    authMiddleware,
+    optionalAuthMiddleware
+} = require("../middleware/authMiddleware");
 const {
     registerSchema,
     updateProfileSchema
@@ -255,6 +258,65 @@ router.delete("/users/:uid", authMiddleware, async (req, res) => {
         console.error(error);
 
         res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+});
+
+router.get("/users/:uid/subscriptions", optionalAuthMiddleware, async (req, res) => {
+
+    try {
+        const db = await dbPromise;
+
+        const user = await db.get(
+            `SELECT user_id
+             FROM users
+             WHERE user_id = ?`,
+            req.params.uid
+        );
+
+        if (!user) {
+
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+
+        const result = await db.get(
+            `SELECT COUNT(*) AS count
+             FROM user_subscriptions
+             WHERE subscribed_user_id = ?`,
+            req.params.uid
+        );
+
+        let subscribedByMe = false;
+
+        if (req.user) {
+
+            const subscription = await db.get(
+                `SELECT *
+                 FROM user_subscriptions
+                 WHERE subscriber_id = ?
+                   AND subscribed_user_id = ?`,
+                req.user.user_id,
+                req.params.uid
+            );
+
+            if (subscription) {
+                subscribedByMe = true;
+            }
+        }
+
+        return res.status(200).json({
+            count: result.count,
+            subscribed_by_me: subscribedByMe
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        return res.status(500).json({
             message: "Internal server error"
         });
     }
