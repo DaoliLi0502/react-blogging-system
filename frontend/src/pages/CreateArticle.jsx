@@ -12,6 +12,13 @@ function CreateArticle() {
 
     const navigate = useNavigate();
 
+    const handleImageChange = (event) => {
+
+        const selectedImage = event.target.files[0];
+
+        setImage(selectedImage);
+    };
+
     const handleSubmit = async (event) => {
 
         event.preventDefault();
@@ -24,6 +31,7 @@ function CreateArticle() {
         formData.append("content", content);
 
         if (image) {
+
             formData.append("image", image);
         }
 
@@ -77,8 +85,20 @@ function CreateArticle() {
                 <input
                     type="file"
                     accept="image/*"
-                    onChange={(event) => setImage(event.target.files[0])}
+                    onChange={handleImageChange}
                 />
+
+                {image && (
+                    <div>
+                        <p>Image preview:</p>
+
+                        <img
+                            src={URL.createObjectURL(image)}
+                            alt="Article preview"
+                            width="300"
+                        />
+                    </div>
+                )}
 
                 <button type="submit">
                     Create Article
