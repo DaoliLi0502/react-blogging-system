@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AllArticles from "./pages/AllArticles";
 import ArticleDetail from "./pages/ArticleDetail";
 import CreateArticle from "./pages/CreateArticle";
+import EditArticle from "./pages/EditArticle";
 import Login from "./pages/Login";
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
                 <Route path="/articles" element={<AllArticles />} />
                 <Route path="/articles/create" element={<CreateArticle />} />
                 <Route path="/articles/:aid" element={<ArticleDetail />} />
+                <Route path="/articles/:aid/edit" element={<EditArticle />} />
                 <Route path="/login" element={<Login />} />
             </Routes>
         </BrowserRouter>
