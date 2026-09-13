@@ -135,17 +135,17 @@ router.get("/articles/:aid", async (req, res) => {
         const db = await dbPromise;
 
         const article = await db.get(
-            `SELECT
-                a.article_id,
-                a.title,
-                a.content,
-                a.image_path,
-                a.author_id,
-                u.username,
-                a.created_at
-             FROM articles a
-             JOIN users u
-                 ON a.author_id = u.user_id
+            `SELECT 
+                a.article_id, 
+                a.title, 
+                a.content, 
+                a.image_path, 
+                a.author_id, 
+                u.username, 
+                a.created_at 
+             FROM articles a 
+             JOIN users u 
+                 ON a.author_id = u.user_id 
              WHERE a.article_id = ?`,
             req.params.aid
         );
@@ -156,6 +156,20 @@ router.get("/articles/:aid", async (req, res) => {
                 message: "Article not found"
             });
         }
+
+        const tags = await db.all(
+            `SELECT
+                t.tag_id,
+                t.name
+             FROM tags t
+             JOIN article_tags at
+                 ON t.tag_id = at.tag_id
+             WHERE at.article_id = ?
+             ORDER BY t.name ASC`,
+            req.params.aid
+        );
+
+        article.tags = tags;
 
         return res.status(200).json({
             article
