@@ -4,8 +4,10 @@ import ArticleDetail from "./pages/ArticleDetail";
 import CreateArticle from "./pages/CreateArticle";
 import EditArticle from "./pages/EditArticle";
 import Login from "./pages/Login";
+import Notifications from "./pages/Notifications";
 
 function App() {
+
     return (
         <BrowserRouter>
             <Routes>
@@ -14,6 +16,7 @@ function App() {
                 <Route path="/articles/:aid" element={<ArticleDetail />} />
                 <Route path="/articles/:aid/edit" element={<EditArticle />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/notifications" element={<Notifications />} />
             </Routes>
         </BrowserRouter>
     );

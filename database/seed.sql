@@ -95,3 +95,21 @@ INSERT INTO comments (
     2,
     'Hello Alice, nice article!'
 );
+
+INSERT INTO comment_notifications (
+    user_id,
+    comment_id,
+    is_read
+)
+VALUES
+    (1, 1, 0),
+    (1, 2, 1);
+
+INSERT INTO subscription_notifications (
+    user_id,
+    article_id,
+    is_read
+)
+VALUES
+    (1, 2, 0),
+    (1, 3, 1);
