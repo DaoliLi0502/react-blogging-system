@@ -216,7 +216,7 @@ function ArticleDetail() {
 
                     {article.image_path && (
                         <img
-                            src={`http://localhost:3000/${article.image_path}`}
+                            src={`http://localhost:3000/${article.image_path.replace(/\\/g, "/")}`}
                             alt={article.title}
                         />
                     )}
@@ -254,6 +254,10 @@ function ArticleDetail() {
                             Subscribe
                         </button>
                     )}
+
+                    <button onClick={() => navigate(`/articles/${aid}/edit`)}>
+                        Edit Article
+                    </button>
 
                     <button onClick={handleDelete}>
                         Delete Article
