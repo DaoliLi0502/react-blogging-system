@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function ArticleDetail() {
+
     const { aid } = useParams();
+    const navigate = useNavigate();
 
     const [article, setArticle] = useState(null);
     const [likeCount, setLikeCount] = useState(0);
@@ -15,6 +17,7 @@ function ArticleDetail() {
     const fetchArticle = async () => {
 
         try {
+
             const response = await axios.get(
                 `http://localhost:3000/api/articles/${aid}`
             );
@@ -36,6 +39,7 @@ function ArticleDetail() {
     const fetchLikes = async () => {
 
         try {
+
             const response = await axios.get(
                 `http://localhost:3000/api/articles/${aid}/likes`,
                 {
@@ -61,6 +65,7 @@ function ArticleDetail() {
     const fetchSubscription = async (authorId) => {
 
         try {
+
             const response = await axios.get(
                 `http://localhost:3000/api/users/${authorId}/subscriptions`,
                 {
@@ -86,6 +91,7 @@ function ArticleDetail() {
     const handleLike = async () => {
 
         try {
+
             if (likedByMe) {
 
                 await axios.delete(
@@ -117,6 +123,7 @@ function ArticleDetail() {
     const handleSubscription = async () => {
 
         try {
+
             if (subscribedByMe) {
 
                 await axios.delete(
@@ -140,6 +147,25 @@ function ArticleDetail() {
             }
 
             await fetchSubscription(article.author_id);
+
+        } catch (error) {
+
+            setErrorMessage(error.response.data.message);
+        }
+    };
+
+    const handleDelete = async () => {
+
+        try {
+
+            await axios.delete(
+                `http://localhost:3000/api/articles/${aid}`,
+                {
+                    withCredentials: true
+                }
+            );
+
+            navigate("/articles");
 
         } catch (error) {
 
@@ -228,6 +254,10 @@ function ArticleDetail() {
                             Subscribe
                         </button>
                     )}
+
+                    <button onClick={handleDelete}>
+                        Delete Article
+                    </button>
                 </div>
             )}
         </div>
