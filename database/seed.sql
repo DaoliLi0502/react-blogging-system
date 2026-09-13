@@ -45,3 +45,53 @@ INSERT INTO articles (
     'Hello, this is a test article.',
     1
 );
+
+INSERT INTO comments (
+    article_id,
+    user_id,
+    content
+) VALUES (
+    1,
+    2,
+    'This is a very interesting article.'
+);
+
+INSERT INTO comments (
+    article_id,
+    user_id,
+    content
+) VALUES (
+    1,
+    1,
+    'Thank you for sharing this article.'
+);
+
+INSERT INTO comments (
+    article_id,
+    user_id,
+    content
+) VALUES (
+    2,
+    1,
+    'React is very useful for building user interfaces.'
+);
+
+INSERT INTO comments (
+    article_id,
+    user_id,
+    content
+) VALUES (
+    2,
+    2,
+    'I am also learning React.'
+);
+
+INSERT INTO comments (
+    article_id,
+    user_id,
+    content
+) VALUES (
+    3,
+    2,
+    'Hello Alice, nice article!'
+);

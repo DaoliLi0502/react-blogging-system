@@ -13,6 +13,7 @@ function ArticleDetail() {
     const [likedByMe, setLikedByMe] = useState(false);
     const [subscriberCount, setSubscriberCount] = useState(0);
     const [subscribedByMe, setSubscribedByMe] = useState(false);
+    const [comments, setComments] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
 
     const fetchArticle = async () => {
@@ -80,6 +81,28 @@ function ArticleDetail() {
             setSubscribedByMe(subscriptionData.subscribed_by_me);
 
             return subscriptionData;
+
+        } catch (error) {
+
+            setErrorMessage(error.response.data.message);
+
+            return null;
+        }
+    };
+
+    const fetchComments = async () => {
+
+        try {
+
+            const response = await axios.get(
+                `http://localhost:3000/api/articles/${aid}/comments`
+            );
+
+            const commentsData = response.data.comments;
+
+            setComments(commentsData);
+
+            return commentsData;
 
         } catch (error) {
 
@@ -214,6 +237,8 @@ function ArticleDetail() {
             if (!subscriptionData) {
                 return;
             }
+
+            await fetchComments();
         };
 
         fetchData();
@@ -286,6 +311,36 @@ function ArticleDetail() {
                         <button onClick={handleDelete}>
                             Delete Article
                         </button>
+                    )}
+
+                    <h3>Comments</h3>
+
+                    {comments.length === 0 ? (
+                        <p>No comments yet.</p>
+                    ) : (
+                        <div>
+                            {comments.map((comment) => (
+                                <div key={comment.comment_id}>
+
+                                    {comment.avatar_path && (
+                                        <img
+                                            src={`http://localhost:3000/${comment.avatar_path.replace(/\\/g, "/")}`}
+                                            alt={comment.username}
+                                            width="50"
+                                        />
+                                    )}
+
+                                    <p>
+                                        <strong>{comment.username}</strong>
+                                    </p>
+
+                                    <p>{comment.content}</p>
+
+                                    <p>{comment.created_at}</p>
+
+                                </div>
+                            ))}
+                        </div>
                     )}
                 </div>
             )}
