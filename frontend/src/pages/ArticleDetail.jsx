@@ -205,6 +205,33 @@ function ArticleDetail() {
         }
     };
 
+    const handleCommentDelete = async (commentId) => {
+
+        const confirmed = window.confirm(
+            "Are you sure you want to delete this comment?"
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        try {
+
+            await axios.delete(
+                `http://localhost:3000/api/articles/${aid}/comments/${commentId}`,
+                {
+                    withCredentials: true
+                }
+            );
+
+            await fetchComments();
+
+        } catch (error) {
+
+            setErrorMessage(error.response.data.message);
+        }
+    };
+
     const handleDelete = async () => {
 
         const confirmed = window.confirm(
@@ -381,6 +408,16 @@ function ArticleDetail() {
                                     <p>{comment.content}</p>
 
                                     <p>{comment.created_at}</p>
+
+                                    {currentUser &&
+                                        (currentUser.user_id === comment.user_id ||
+                                            currentUser.user_id === article.author_id) && (
+                                            <button
+                                                onClick={() => handleCommentDelete(comment.comment_id)}
+                                            >
+                                                Delete Comment
+                                            </button>
+                                        )}
 
                                 </div>
                             ))}
