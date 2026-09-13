@@ -14,6 +14,7 @@ function ArticleDetail() {
     const [subscriberCount, setSubscriberCount] = useState(0);
     const [subscribedByMe, setSubscribedByMe] = useState(false);
     const [comments, setComments] = useState([]);
+    const [commentContent, setCommentContent] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
     const fetchArticle = async () => {
@@ -178,6 +179,32 @@ function ArticleDetail() {
         }
     };
 
+    const handleCommentSubmit = async (event) => {
+
+        event.preventDefault();
+
+        try {
+
+            await axios.post(
+                `http://localhost:3000/api/articles/${aid}/comments`,
+                {
+                    content: commentContent
+                },
+                {
+                    withCredentials: true
+                }
+            );
+
+            setCommentContent("");
+
+            await fetchComments();
+
+        } catch (error) {
+
+            setErrorMessage(error.response.data.message);
+        }
+    };
+
     const handleDelete = async () => {
 
         const confirmed = window.confirm(
@@ -314,6 +341,23 @@ function ArticleDetail() {
                     )}
 
                     <h3>Comments</h3>
+
+                    {currentUser && (
+                        <form onSubmit={handleCommentSubmit}>
+
+                            <textarea
+                                value={commentContent}
+                                onChange={(event) => setCommentContent(event.target.value)}
+                                placeholder="Write a comment..."
+                                required
+                            />
+
+                            <button type="submit">
+                                Post Comment
+                            </button>
+
+                        </form>
+                    )}
 
                     {comments.length === 0 ? (
                         <p>No comments yet.</p>
