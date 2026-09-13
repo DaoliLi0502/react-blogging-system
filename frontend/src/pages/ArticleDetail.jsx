@@ -15,6 +15,8 @@ function ArticleDetail() {
     const [subscribedByMe, setSubscribedByMe] = useState(false);
     const [comments, setComments] = useState([]);
     const [commentContent, setCommentContent] = useState("");
+    const [allTags, setAllTags] = useState([]);
+    const [selectedTagId, setSelectedTagId] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
     const fetchArticle = async () => {
@@ -104,6 +106,28 @@ function ArticleDetail() {
             setComments(commentsData);
 
             return commentsData;
+
+        } catch (error) {
+
+            setErrorMessage(error.response.data.message);
+
+            return null;
+        }
+    };
+
+    const fetchAllTags = async () => {
+
+        try {
+
+            const response = await axios.get(
+                "http://localhost:3000/api/tags"
+            );
+
+            const tagsData = response.data.tags;
+
+            setAllTags(tagsData);
+
+            return tagsData;
 
         } catch (error) {
 
@@ -232,6 +256,53 @@ function ArticleDetail() {
         }
     };
 
+    const handleAddTag = async () => {
+
+        try {
+
+            if (!selectedTagId) {
+                return;
+            }
+
+            await axios.post(
+                `http://localhost:3000/api/articles/${aid}/tags`,
+                {
+                    tag_ids: [Number(selectedTagId)]
+                },
+                {
+                    withCredentials: true
+                }
+            );
+
+            setSelectedTagId("");
+
+            await fetchArticle();
+
+        } catch (error) {
+
+            setErrorMessage(error.response.data.message);
+        }
+    };
+
+    const handleRemoveTag = async (tagId) => {
+
+        try {
+
+            await axios.delete(
+                `http://localhost:3000/api/articles/${aid}/tags/${tagId}`,
+                {
+                    withCredentials: true
+                }
+            );
+
+            await fetchArticle();
+
+        } catch (error) {
+
+            setErrorMessage(error.response.data.message);
+        }
+    };
+
     const handleDelete = async () => {
 
         const confirmed = window.confirm(
@@ -293,6 +364,7 @@ function ArticleDetail() {
             }
 
             await fetchComments();
+            await fetchAllTags();
         };
 
         fetchData();
@@ -327,19 +399,63 @@ function ArticleDetail() {
                         }}
                     />
 
-                    {article.tags.length > 0 && (
-                        <div>
-                            <h3>Tags</h3>
+                    <div>
+                        <h3>Tags</h3>
 
+                        {article.tags.length === 0 ? (
+                            <p>No tags yet.</p>
+                        ) : (
                             <ul>
                                 {article.tags.map((tag) => (
                                     <li key={tag.tag_id}>
                                         {tag.name}
+
+                                        {isOwner && (
+                                            <button
+                                                onClick={() => handleRemoveTag(tag.tag_id)}
+                                            >
+                                                Remove
+                                            </button>
+                                        )}
                                     </li>
                                 ))}
                             </ul>
-                        </div>
-                    )}
+                        )}
+
+                        {isOwner && (
+                            <div>
+                                <select
+                                    value={selectedTagId}
+                                    onChange={(event) => setSelectedTagId(event.target.value)}
+                                >
+                                    <option value="">
+                                        Select a tag
+                                    </option>
+
+                                    {allTags
+                                        .filter(
+                                            (tag) =>
+                                                !article.tags.some(
+                                                    (articleTag) =>
+                                                        articleTag.tag_id === tag.tag_id
+                                                )
+                                        )
+                                        .map((tag) => (
+                                            <option
+                                                key={tag.tag_id}
+                                                value={tag.tag_id}
+                                            >
+                                                {tag.name}
+                                            </option>
+                                        ))}
+                                </select>
+
+                                <button onClick={handleAddTag}>
+                                    Add Tag
+                                </button>
+                            </div>
+                        )}
+                    </div>
 
                     <p>Author: {article.username}</p>
 
@@ -385,7 +501,6 @@ function ArticleDetail() {
 
                     {currentUser && (
                         <form onSubmit={handleCommentSubmit}>
-
                             <textarea
                                 value={commentContent}
                                 onChange={(event) => setCommentContent(event.target.value)}
@@ -396,7 +511,6 @@ function ArticleDetail() {
                             <button type="submit">
                                 Post Comment
                             </button>
-
                         </form>
                     )}
 

@@ -113,3 +113,22 @@ INSERT INTO subscription_notifications (
 VALUES
     (1, 2, 0),
     (1, 3, 1);
+
+INSERT INTO tags (name)
+VALUES
+    ('React'),
+    ('JavaScript'),
+    ('Node.js'),
+    ('SQLite'),
+    ('Web Development'),
+    ('Programming');
+
+INSERT INTO article_tags (article_id, tag_id)
+VALUES
+    (1, 1),
+    (1, 2),
+    (1, 6),
+    (2, 3),
+    (2, 4),
+    (3, 1),
+    (3, 5);
