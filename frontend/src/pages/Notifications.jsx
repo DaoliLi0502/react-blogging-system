@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Notifications() {
+
+    const navigate = useNavigate();
 
     const [commentNotifications, setCommentNotifications] = useState([]);
     const [subscriptionNotifications, setSubscriptionNotifications] = useState([]);
@@ -124,7 +127,11 @@ function Notifications() {
                                 />
                             )}
 
-                            <p>
+                            <p
+                                onClick={() => navigate(
+                                    `/articles/${notification.article_id}`
+                                )}
+                            >
                                 <strong>
                                     {notification.commenter_username}
                                 </strong>{" "}
@@ -167,7 +174,11 @@ function Notifications() {
                                 />
                             )}
 
-                            <p>
+                            <p
+                                onClick={() => navigate(
+                                    `/articles/${notification.article_id}`
+                                )}
+                            >
                                 New article from{" "}
                                 <strong>
                                     {notification.author_username}
