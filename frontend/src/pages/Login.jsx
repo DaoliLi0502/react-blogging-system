@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Login() {
+
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
@@ -14,7 +15,8 @@ function Login() {
         setErrorMessage("");
 
         try {
-            await axios.post(
+
+            const response = await axios.post(
                 "http://localhost:3000/api/login",
                 {
                     username: username,
@@ -23,6 +25,11 @@ function Login() {
                 {
                     withCredentials: true
                 }
+            );
+
+            localStorage.setItem(
+                "user",
+                JSON.stringify(response.data.user)
             );
 
             navigate("/articles");
@@ -53,7 +60,9 @@ function Login() {
 
             {errorMessage && <p>{errorMessage}</p>}
 
-            <button onClick={handleLogin}>Login</button>
+            <button onClick={handleLogin}>
+                Login
+            </button>
         </div>
     );
 }

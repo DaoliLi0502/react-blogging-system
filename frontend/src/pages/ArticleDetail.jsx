@@ -8,6 +8,7 @@ function ArticleDetail() {
     const navigate = useNavigate();
 
     const [article, setArticle] = useState(null);
+    const [currentUser, setCurrentUser] = useState(null);
     const [likeCount, setLikeCount] = useState(0);
     const [likedByMe, setLikedByMe] = useState(false);
     const [subscriberCount, setSubscriberCount] = useState(0);
@@ -179,6 +180,13 @@ function ArticleDetail() {
 
             setErrorMessage("");
 
+            const storedUser = localStorage.getItem("user");
+
+            if (storedUser) {
+
+                setCurrentUser(JSON.parse(storedUser));
+            }
+
             const articleData = await fetchArticle();
 
             if (!articleData) {
@@ -203,6 +211,11 @@ function ArticleDetail() {
         fetchData();
 
     }, [aid]);
+
+    const isOwner =
+        currentUser &&
+        article &&
+        article.author_id === currentUser.user_id;
 
     return (
         <div>
@@ -255,13 +268,17 @@ function ArticleDetail() {
                         </button>
                     )}
 
-                    <button onClick={() => navigate(`/articles/${aid}/edit`)}>
-                        Edit Article
-                    </button>
+                    {isOwner && (
+                        <button onClick={() => navigate(`/articles/${aid}/edit`)}>
+                            Edit Article
+                        </button>
+                    )}
 
-                    <button onClick={handleDelete}>
-                        Delete Article
-                    </button>
+                    {isOwner && (
+                        <button onClick={handleDelete}>
+                            Delete Article
+                        </button>
+                    )}
                 </div>
             )}
         </div>
