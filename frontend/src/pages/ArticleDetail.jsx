@@ -17,6 +17,7 @@ function ArticleDetail() {
     const [commentContent, setCommentContent] = useState("");
     const [allTags, setAllTags] = useState([]);
     const [selectedTagId, setSelectedTagId] = useState("");
+    const [newTagName, setNewTagName] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
     const fetchArticle = async () => {
@@ -284,6 +285,32 @@ function ArticleDetail() {
         }
     };
 
+    const handleCreateTag = async () => {
+
+        try {
+
+            const response = await axios.post(
+                "http://localhost:3000/api/tags",
+                {
+                    name: newTagName
+                },
+                {
+                    withCredentials: true
+                }
+            );
+
+            setNewTagName("");
+
+            await fetchAllTags();
+
+            setSelectedTagId(String(response.data.tag_id));
+
+        } catch (error) {
+
+            setErrorMessage(error.response.data.message);
+        }
+    };
+
     const handleRemoveTag = async (tagId) => {
 
         try {
@@ -453,6 +480,19 @@ function ArticleDetail() {
                                 <button onClick={handleAddTag}>
                                     Add Tag
                                 </button>
+
+                                <div>
+                                    <input
+                                        type="text"
+                                        value={newTagName}
+                                        onChange={(event) => setNewTagName(event.target.value)}
+                                        placeholder="Enter a new tag"
+                                    />
+
+                                    <button onClick={handleCreateTag}>
+                                        Create Tag
+                                    </button>
+                                </div>
                             </div>
                         )}
                     </div>
