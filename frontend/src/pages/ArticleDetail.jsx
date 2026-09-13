@@ -157,6 +157,14 @@ function ArticleDetail() {
 
     const handleDelete = async () => {
 
+        const confirmed = window.confirm(
+            "Are you sure you want to delete this article?"
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
         try {
 
             await axios.delete(
