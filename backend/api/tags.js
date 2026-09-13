@@ -1,7 +1,56 @@
 const express = require("express");
 const dbPromise = require("../db");
+const createTagSchema = require("../validation/tagValidation");
 
 const router = express.Router();
+
+router.post("/tags", authMiddleware, async (req, res) => {
+
+    try {
+
+        const db = await dbPromise;
+
+        const { name } = await createTagSchema.validate(
+            req.body,
+            {
+                stripUnknown: true
+            }
+        );
+
+        const existingTag = await db.get(
+            `SELECT *
+             FROM tags
+             WHERE name = ?`,
+            name
+        );
+
+        if (existingTag) {
+
+            return res.status(409).json({
+                message: "Tag already exists"
+            });
+        }
+
+        const result = await db.run(
+            `INSERT INTO tags (name)
+             VALUES (?)`,
+            name
+        );
+
+        return res.status(201).json({
+            message: "Tag created successfully",
+            tag_id: result.lastID
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+});
 
 router.get("/tags", async (req, res) => {
 

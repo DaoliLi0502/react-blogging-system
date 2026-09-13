@@ -327,6 +327,20 @@ function ArticleDetail() {
                         }}
                     />
 
+                    {article.tags.length > 0 && (
+                        <div>
+                            <h3>Tags</h3>
+
+                            <ul>
+                                {article.tags.map((tag) => (
+                                    <li key={tag.tag_id}>
+                                        {tag.name}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+
                     <p>Author: {article.username}</p>
 
                     <p>Date: {article.created_at}</p>
