@@ -19,6 +19,7 @@ const upload = multer({
 });
 
 router.get("/articles", async (req, res) => {
+
     const {
         search,
         match,
@@ -27,6 +28,7 @@ router.get("/articles", async (req, res) => {
     } = req.query;
 
     try {
+
         const db = await dbPromise;
 
         const sortColumns = {
@@ -39,6 +41,7 @@ router.get("/articles", async (req, res) => {
         const sortOrder = order === "asc" ? "ASC" : "DESC";
 
         if (match === "partial" && search) {
+
             const query = `
                 SELECT
                     a.article_id,
@@ -53,12 +56,17 @@ router.get("/articles", async (req, res) => {
                     ON a.author_id = u.user_id
                 WHERE LOWER(a.title) LIKE LOWER(?)
                    OR LOWER(a.content) LIKE LOWER(?)
+                   OR LOWER(u.username) LIKE LOWER(?)
                 ORDER BY ${sortColumn} ${sortOrder}
             `;
 
             const articles = await db.all(
                 query,
-                [`%${search}%`, `%${search}%`]
+                [
+                    `%${search}%`,
+                    `%${search}%`,
+                    `%${search}%`
+                ]
             );
 
             return res.status(200).json({
@@ -67,6 +75,7 @@ router.get("/articles", async (req, res) => {
         }
 
         if (match === "exact" && search) {
+
             const query = `
                 SELECT
                     a.article_id,
@@ -91,7 +100,8 @@ router.get("/articles", async (req, res) => {
 
             articles = articles.filter(article =>
                 regex.test(article.title) ||
-                regex.test(article.content)
+                regex.test(article.content) ||
+                regex.test(article.username)
             );
 
             return res.status(200).json({
@@ -121,6 +131,7 @@ router.get("/articles", async (req, res) => {
         });
 
     } catch (error) {
+
         console.error(error);
 
         res.status(500).json({
