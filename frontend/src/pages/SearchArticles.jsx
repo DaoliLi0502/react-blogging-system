@@ -1,4 +1,6 @@
 import { useState } from "react";
+import axios from "axios";
+import ArticleCard from "../components/ArticleCard";
 
 function SearchArticles() {
 
@@ -6,17 +8,34 @@ function SearchArticles() {
     const [match, setMatch] = useState("partial");
     const [sort, setSort] = useState("date");
     const [order, setOrder] = useState("desc");
+    const [articles, setArticles] = useState([]);
+    const [errorMessage, setErrorMessage] = useState("");
 
-    const handleSearch = (event) => {
+    const handleSearch = async (event) => {
 
         event.preventDefault();
 
-        console.log({
-            search,
-            match,
-            sort,
-            order
-        });
+        try {
+
+            const response = await axios.get(
+                "http://localhost:3000/api/articles",
+                {
+                    params: {
+                        search,
+                        match,
+                        sort,
+                        order
+                    }
+                }
+            );
+
+            setArticles(response.data.articles);
+            setErrorMessage("");
+
+        } catch (error) {
+
+            setErrorMessage(error.response.data.message);
+        }
     };
 
     return (
@@ -99,6 +118,19 @@ function SearchArticles() {
                 </button>
 
             </form>
+
+            {errorMessage && (
+                <p>{errorMessage}</p>
+            )}
+
+            <div>
+                {articles.map((article) => (
+                    <ArticleCard
+                        key={article.article_id}
+                        article={article}
+                    />
+                ))}
+            </div>
         </div>
     );
 }
