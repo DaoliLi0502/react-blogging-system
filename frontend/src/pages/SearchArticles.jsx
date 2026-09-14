@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import ArticleCard from "../components/ArticleCard";
 
@@ -10,6 +10,30 @@ function SearchArticles() {
     const [order, setOrder] = useState("desc");
     const [articles, setArticles] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
+    const [allTags, setAllTags] = useState([]);
+    const [selectedTagId, setSelectedTagId] = useState("");
+
+    useEffect(() => {
+
+        const fetchAllTags = async () => {
+
+            try {
+
+                const response = await axios.get(
+                    "http://localhost:3000/api/tags"
+                );
+
+                setAllTags(response.data.tags);
+
+            } catch (error) {
+
+                setErrorMessage(error.response.data.message);
+            }
+        };
+
+        fetchAllTags();
+
+    }, []);
 
     const handleSearch = async (event) => {
 
@@ -27,6 +51,23 @@ function SearchArticles() {
                         order
                     }
                 }
+            );
+
+            setArticles(response.data.articles);
+            setErrorMessage("");
+
+        } catch (error) {
+
+            setErrorMessage(error.response.data.message);
+        }
+    };
+
+    const handleTagSearch = async () => {
+
+        try {
+
+            const response = await axios.get(
+                `http://localhost:3000/api/tags/${selectedTagId}/articles`
             );
 
             setArticles(response.data.articles);
@@ -118,6 +159,36 @@ function SearchArticles() {
                 </button>
 
             </form>
+
+            <div>
+                <label>
+                    Search by Tag:
+                    <select
+                        value={selectedTagId}
+                        onChange={(event) => setSelectedTagId(event.target.value)}
+                    >
+                        <option value="">
+                            Select a tag
+                        </option>
+
+                        {allTags.map((tag) => (
+                            <option
+                                key={tag.tag_id}
+                                value={tag.tag_id}
+                            >
+                                {tag.name}
+                            </option>
+                        ))}
+                    </select>
+                </label>
+
+                <button
+                    onClick={handleTagSearch}
+                    disabled={!selectedTagId}
+                >
+                    Search by Tag
+                </button>
+            </div>
 
             {errorMessage && (
                 <p>{errorMessage}</p>
