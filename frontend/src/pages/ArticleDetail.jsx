@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function ArticleDetail() {
@@ -435,7 +435,9 @@ function ArticleDetail() {
                             <ul>
                                 {article.tags.map((tag) => (
                                     <li key={tag.tag_id}>
-                                        {tag.name}
+                                        <Link to={`/search?tag_id=${tag.tag_id}`}>
+                                            {tag.name}
+                                        </Link>
 
                                         {isOwner && (
                                             <button

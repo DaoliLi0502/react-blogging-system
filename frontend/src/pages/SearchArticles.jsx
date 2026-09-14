@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import ArticleCard from "../components/ArticleCard";
 
 function SearchArticles() {
+
+    const [searchParams] = useSearchParams();
 
     const [search, setSearch] = useState("");
     const [match, setMatch] = useState("partial");
@@ -34,6 +37,36 @@ function SearchArticles() {
         fetchAllTags();
 
     }, []);
+
+    useEffect(() => {
+
+        const tagId = searchParams.get("tag_id");
+
+        if (tagId) {
+
+            setSelectedTagId(tagId);
+
+            const fetchTagArticles = async () => {
+
+                try {
+
+                    const response = await axios.get(
+                        `http://localhost:3000/api/tags/${tagId}/articles`
+                    );
+
+                    setArticles(response.data.articles);
+                    setErrorMessage("");
+
+                } catch (error) {
+
+                    setErrorMessage(error.response.data.message);
+                }
+            };
+
+            fetchTagArticles();
+        }
+
+    }, [searchParams]);
 
     const handleSearch = async (event) => {
 
