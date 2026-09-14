@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import axios from "axios";
 import ArticleCard from "../components/ArticleCard";
 
@@ -221,6 +221,20 @@ function SearchArticles() {
                 >
                     Search by Tag
                 </button>
+            </div>
+
+            <div>
+                <h2>All Tags</h2>
+
+                <ul>
+                    {allTags.map((tag) => (
+                        <li key={tag.tag_id}>
+                            <Link to={`/search?tag_id=${tag.tag_id}`}>
+                                {tag.name}
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
             </div>
 
             {errorMessage && (
