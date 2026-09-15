@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Notifications from "./pages/Notifications";
 import Profile from "./pages/Profile";
 import SearchArticles from "./pages/SearchArticles";
+import Signup from "./pages/Signup";
 import Navbar from "./components/Navbar";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
                 <Route path="/notifications" element={<Notifications />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/search" element={<SearchArticles />} />
+                <Route path="/signup" element={<Signup />} />
             </Routes>
 
         </BrowserRouter>

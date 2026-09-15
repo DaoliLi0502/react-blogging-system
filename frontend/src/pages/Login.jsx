@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Login() {
@@ -63,6 +63,13 @@ function Login() {
             <button onClick={handleLogin}>
                 Login
             </button>
+
+            <p>
+                Don't have an account?{" "}
+                <Link to="/signup">
+                    Sign Up
+                </Link>
+            </p>
         </div>
     );
 }
