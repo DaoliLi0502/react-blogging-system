@@ -91,4 +91,50 @@ router.post("/logout", authMiddleware, (req, res) => {
     res.status(204).send();
 });
 
+router.get("/status", async (req, res) => {
+
+    try {
+
+        const token = req.cookies.token;
+
+        if (!token) {
+
+            return res.status(200).json({
+                authenticated: false
+            });
+        }
+
+        const decoded = jwt.verify(
+            token,
+            process.env.JWT_SECRET
+        );
+
+        const db = await dbPromise;
+
+        const user = await db.get(
+            `SELECT user_id
+             FROM users
+             WHERE user_id = ?`,
+            decoded.user_id
+        );
+
+        if (!user) {
+
+            return res.status(200).json({
+                authenticated: false
+            });
+        }
+
+        res.status(200).json({
+            authenticated: true
+        });
+
+    } catch (error) {
+
+        res.status(200).json({
+            authenticated: false
+        });
+    }
+});
+
 module.exports = router;

@@ -4,34 +4,34 @@ import axios from "axios";
 
 function Navbar() {
 
-    const [user, setUser] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
 
-        const fetchCurrentUser = async () => {
+        const fetchAuthStatus = async () => {
 
             try {
 
                 const response = await axios.get(
-                    "http://localhost:3000/api/users/me",
+                    "http://localhost:3000/api/status",
                     {
                         withCredentials: true
                     }
                 );
 
-                setUser(response.data.user);
+                setIsLoggedIn(response.data.authenticated);
 
             } catch (error) {
 
-                setUser(null);
+                setIsLoggedIn(false);
             }
         };
 
-        fetchCurrentUser();
+        fetchAuthStatus();
 
     }, []);
 
-    if (!user) {
+    if (!isLoggedIn) {
 
         return (
             <nav>

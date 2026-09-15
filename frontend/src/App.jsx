@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import AllArticles from "./pages/AllArticles";
 import ArticleDetail from "./pages/ArticleDetail";
 import CreateArticle from "./pages/CreateArticle";
@@ -18,6 +18,7 @@ function App() {
             <Navbar />
 
             <Routes>
+                <Route path="/" element={<Navigate to="/articles" />} />
                 <Route path="/articles" element={<AllArticles />} />
                 <Route path="/articles/:aid" element={<ArticleDetail />} />
                 <Route path="/articles/:aid/edit" element={<EditArticle />} />
