@@ -43,15 +43,24 @@ function Navbar() {
                     Search
                 </Link>
 
-                <Link to="/login">
+                <Link
+                    to="/login"
+                    onClick={() => alert("Please log in first.")}
+                >
                     Create Article
                 </Link>
 
-                <Link to="/login">
+                <Link
+                    to="/login"
+                    onClick={() => alert("Please log in first.")}
+                >
                     Notifications
                 </Link>
 
-                <Link to="/login">
+                <Link
+                    to="/login"
+                    onClick={() => alert("Please log in first.")}
+                >
                     My Profile
                 </Link>
 
