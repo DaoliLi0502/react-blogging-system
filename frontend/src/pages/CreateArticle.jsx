@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,36 @@ function CreateArticle() {
     const [errorMessage, setErrorMessage] = useState("");
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+
+        const fetchData = async () => {
+
+            try {
+
+                await axios.get(
+                    "http://localhost:3000/api/users/me",
+                    {
+                        withCredentials: true
+                    }
+                );
+
+            } catch (error) {
+
+                if (error.response.status === 401) {
+
+                    navigate("/login");
+
+                    return;
+                }
+
+                setErrorMessage(error.response.data.message);
+            }
+        };
+
+        fetchData();
+
+    }, []);
 
     const handleImageChange = (event) => {
 
@@ -49,9 +79,7 @@ function CreateArticle() {
 
         } catch (error) {
 
-            setErrorMessage(
-                error.response?.data?.message || "Failed to create article"
-            );
+            setErrorMessage(error.response.data.message);
         }
     };
 

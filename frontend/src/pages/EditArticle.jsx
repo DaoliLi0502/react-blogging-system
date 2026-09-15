@@ -19,9 +19,16 @@ function EditArticle() {
 
     useEffect(() => {
 
-        const fetchArticle = async () => {
+        const fetchData = async () => {
 
             try {
+
+                await axios.get(
+                    "http://localhost:3000/api/users/me",
+                    {
+                        withCredentials: true
+                    }
+                );
 
                 const response = await axios.get(
                     `http://localhost:3000/api/articles/${aid}`
@@ -33,13 +40,20 @@ function EditArticle() {
 
             } catch (error) {
 
+                if (error.response.status === 401) {
+
+                    navigate("/login");
+
+                    return;
+                }
+
                 setErrorMessage(
                     error.response.data.message
                 );
             }
         };
 
-        fetchArticle();
+        fetchData();
 
     }, [aid]);
 

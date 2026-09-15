@@ -94,8 +94,29 @@ function Notifications() {
 
             setErrorMessage("");
 
-            await fetchCommentNotifications();
-            await fetchSubscriptionNotifications();
+            try {
+
+                await axios.get(
+                    "http://localhost:3000/api/users/me",
+                    {
+                        withCredentials: true
+                    }
+                );
+
+                await fetchCommentNotifications();
+                await fetchSubscriptionNotifications();
+
+            } catch (error) {
+
+                if (error.response.status === 401) {
+
+                    navigate("/login");
+
+                    return;
+                }
+
+                setErrorMessage(error.response.data.message);
+            }
         };
 
         fetchNotifications();

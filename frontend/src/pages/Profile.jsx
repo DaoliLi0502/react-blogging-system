@@ -45,6 +45,13 @@ function Profile() {
 
         } catch (error) {
 
+            if (error.response.status === 401) {
+
+                navigate("/login");
+
+                return;
+            }
+
             setErrorMessage(error.response.data.message);
         }
     };
