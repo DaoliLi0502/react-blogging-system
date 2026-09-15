@@ -363,11 +363,20 @@ function ArticleDetail() {
 
             setErrorMessage("");
 
-            const storedUser = localStorage.getItem("user");
+            try {
 
-            if (storedUser) {
+                const response = await axios.get(
+                    "http://localhost:3000/api/users/me",
+                    {
+                        withCredentials: true
+                    }
+                );
 
-                setCurrentUser(JSON.parse(storedUser));
+                setCurrentUser(response.data.user);
+
+            } catch (error) {
+
+                setCurrentUser(null);
             }
 
             const articleData = await fetchArticle();
