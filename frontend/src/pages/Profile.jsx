@@ -126,6 +126,26 @@ function Profile() {
         }
     };
 
+    const handleLogout = async () => {
+
+        try {
+
+            await axios.post(
+                "http://localhost:3000/api/logout",
+                {},
+                {
+                    withCredentials: true
+                }
+            );
+
+            navigate("/articles");
+
+        } catch (error) {
+
+            setErrorMessage(error.response.data.message);
+        }
+    };
+
     if (!user) {
 
         return <p>Loading...</p>;
@@ -245,6 +265,10 @@ function Profile() {
 
             <button onClick={() => navigate("/articles")}>
                 Back to Articles
+            </button>
+
+            <button onClick={handleLogout}>
+                Logout
             </button>
         </div>
     );

@@ -8,20 +8,24 @@ function Navbar() {
                 Articles
             </Link>
 
-            <Link to="/search">
-                Search
-            </Link>
-
             <Link to="/articles/create">
                 Create Article
+            </Link>
+
+            <Link to="/login">
+                Login
+            </Link>
+
+            <Link to="/notifications">
+                Notifications
             </Link>
 
             <Link to="/profile">
                 My Profile
             </Link>
 
-            <Link to="/notifications">
-                Notifications
+            <Link to="/search">
+                Search
             </Link>
         </nav>
     );
