@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import ArticleCard from "../components/ArticleCard";
 
 function Profile() {
 
@@ -18,72 +19,72 @@ function Profile() {
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
 
+    const fetchProfile = async () => {
+
+        try {
+
+            const response = await axios.get(
+                "http://localhost:3000/api/users/me",
+                {
+                    withCredentials: true
+                }
+            );
+
+            const currentUser = response.data.user;
+
+            setUser(currentUser);
+
+            setRealName(currentUser.real_name || "");
+            setDateOfBirth(currentUser.date_of_birth || "");
+            setDescription(currentUser.description || "");
+            setAvatarId(
+                currentUser.avatar_id
+                    ? String(currentUser.avatar_id)
+                    : ""
+            );
+
+        } catch (error) {
+
+            setErrorMessage(error.response.data.message);
+        }
+    };
+
+    const fetchMyArticles = async () => {
+
+        try {
+
+            const response = await axios.get(
+                "http://localhost:3000/api/articles/me",
+                {
+                    withCredentials: true
+                }
+            );
+
+            setArticles(response.data.articles);
+
+        } catch (error) {
+
+            setErrorMessage(error.response.data.message);
+        }
+    };
+
+    const fetchAvatars = async () => {
+
+        try {
+
+            const response = await axios.get(
+                "http://localhost:3000/api/avatars"
+            );
+
+            setAvatars(response.data.avatars);
+
+        } catch (error) {
+
+            setErrorMessage(error.response.data.message);
+        }
+    };
+
     useEffect(() => {
-
-        const fetchProfile = async () => {
-
-            try {
-
-                const response = await axios.get(
-                    "http://localhost:3000/api/users/me",
-                    {
-                        withCredentials: true
-                    }
-                );
-
-                const currentUser = response.data.user;
-
-                setUser(currentUser);
-
-                setRealName(currentUser.real_name || "");
-                setDateOfBirth(currentUser.date_of_birth || "");
-                setDescription(currentUser.description || "");
-                setAvatarId(
-                    currentUser.avatar_id
-                        ? String(currentUser.avatar_id)
-                        : ""
-                );
-
-            } catch (error) {
-
-                setErrorMessage(error.response.data.message);
-            }
-        };
-
-        const fetchMyArticles = async () => {
-
-            try {
-
-                const response = await axios.get(
-                    "http://localhost:3000/api/articles/me",
-                    {
-                        withCredentials: true
-                    }
-                );
-
-                setArticles(response.data.articles);
-
-            } catch (error) {
-
-                setErrorMessage(error.response.data.message);
-            }
-        };
-
-        const fetchAvatars = async () => {
-
-            try {
-
-                const response = await axios.get(
-                    "http://localhost:3000/api/avatars"
-                );
-
-                setAvatars(response.data.avatars);
-
-            } catch (error) {
-
-                setErrorMessage(error.response.data.message);
-            }
-        };
 
         fetchProfile();
         fetchMyArticles();
@@ -115,15 +116,7 @@ function Profile() {
                 }
             );
 
-            setUser((currentUser) => ({
-                ...currentUser,
-                real_name: realName,
-                date_of_birth: dateOfBirth,
-                description: description,
-                avatar_id: avatarId
-                    ? Number(avatarId)
-                    : null
-            }));
+            await fetchProfile();
 
             setSuccessMessage(response.data.message);
 
@@ -131,16 +124,6 @@ function Profile() {
 
             setErrorMessage(error.response.data.message);
         }
-    };
-
-    const getAvatarImageUrl = (imagePath) => {
-
-        if (imagePath.startsWith("/")) {
-
-            return `http://localhost:3000${imagePath}`;
-        }
-
-        return `http://localhost:3000/${imagePath}`;
     };
 
     if (!user) {
@@ -231,7 +214,7 @@ function Profile() {
                             />
 
                             <img
-                                src={getAvatarImageUrl(avatar.image_path)}
+                                src={`http://localhost:3000${avatar.image_path}`}
                                 alt="Avatar"
                                 width="80"
                             />
@@ -254,17 +237,10 @@ function Profile() {
             )}
 
             {articles.map((article) => (
-                <div key={article.article_id}>
-                    <h3>
-                        <Link to={`/articles/${article.article_id}`}>
-                            {article.title}
-                        </Link>
-                    </h3>
-
-                    <p>
-                        {article.created_at}
-                    </p>
-                </div>
+                <ArticleCard
+                    key={article.article_id}
+                    article={article}
+                />
             ))}
 
             <button onClick={() => navigate("/articles")}>
