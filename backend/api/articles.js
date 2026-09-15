@@ -24,12 +24,18 @@ router.get("/articles", async (req, res) => {
         search,
         match,
         sort,
-        order
+        order,
+        page = 1,
+        limit = 5
     } = req.query;
 
     try {
 
         const db = await dbPromise;
+
+        const pageNumber = Number(page);
+        const limitNumber = Number(limit);
+        const offset = (pageNumber - 1) * limitNumber;
 
         const sortColumns = {
             title: "a.title",
@@ -41,6 +47,30 @@ router.get("/articles", async (req, res) => {
         const sortOrder = order === "asc" ? "ASC" : "DESC";
 
         if (match === "partial" && search) {
+
+            const countQuery = `
+                SELECT COUNT(*) AS total
+                FROM articles a
+                JOIN users u
+                    ON a.author_id = u.user_id
+                WHERE LOWER(a.title) LIKE LOWER(?)
+                   OR LOWER(a.content) LIKE LOWER(?)
+                   OR LOWER(u.username) LIKE LOWER(?)
+            `;
+
+            const countResult = await db.get(
+                countQuery,
+                [
+                    `%${search}%`,
+                    `%${search}%`,
+                    `%${search}%`
+                ]
+            );
+
+            const totalArticles = countResult.total;
+            const totalPages = Math.ceil(
+                totalArticles / limitNumber
+            );
 
             const query = `
                 SELECT
@@ -58,6 +88,7 @@ router.get("/articles", async (req, res) => {
                    OR LOWER(a.content) LIKE LOWER(?)
                    OR LOWER(u.username) LIKE LOWER(?)
                 ORDER BY ${sortColumn} ${sortOrder}
+                LIMIT ? OFFSET ?
             `;
 
             const articles = await db.all(
@@ -65,12 +96,20 @@ router.get("/articles", async (req, res) => {
                 [
                     `%${search}%`,
                     `%${search}%`,
-                    `%${search}%`
+                    `%${search}%`,
+                    limitNumber,
+                    offset
                 ]
             );
 
             return res.status(200).json({
-                articles
+                articles,
+                pagination: {
+                    page: pageNumber,
+                    limit: limitNumber,
+                    totalArticles,
+                    totalPages
+                }
             });
         }
 
@@ -104,10 +143,36 @@ router.get("/articles", async (req, res) => {
                 regex.test(article.username)
             );
 
+            const totalArticles = articles.length;
+            const totalPages = Math.ceil(
+                totalArticles / limitNumber
+            );
+
+            articles = articles.slice(
+                offset,
+                offset + limitNumber
+            );
+
             return res.status(200).json({
-                articles
+                articles,
+                pagination: {
+                    page: pageNumber,
+                    limit: limitNumber,
+                    totalArticles,
+                    totalPages
+                }
             });
         }
+
+        const countResult = await db.get(
+            `SELECT COUNT(*) AS total
+             FROM articles`
+        );
+
+        const totalArticles = countResult.total;
+        const totalPages = Math.ceil(
+            totalArticles / limitNumber
+        );
 
         const query = `
             SELECT
@@ -122,12 +187,25 @@ router.get("/articles", async (req, res) => {
             JOIN users u
                 ON a.author_id = u.user_id
             ORDER BY ${sortColumn} ${sortOrder}
+            LIMIT ? OFFSET ?
         `;
 
-        const articles = await db.all(query);
+        const articles = await db.all(
+            query,
+            [
+                limitNumber,
+                offset
+            ]
+        );
 
         return res.status(200).json({
-            articles
+            articles,
+            pagination: {
+                page: pageNumber,
+                limit: limitNumber,
+                totalArticles,
+                totalPages
+            }
         });
 
     } catch (error) {
@@ -139,7 +217,6 @@ router.get("/articles", async (req, res) => {
         });
     }
 });
-
 
 router.get("/articles/me", authMiddleware, async (req, res) => {
     try {
