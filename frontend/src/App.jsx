@@ -6,6 +6,7 @@ import CreateArticle from "./pages/CreateArticle";
 import EditArticle from "./pages/EditArticle";
 import Login from "./pages/Login";
 import Notifications from "./pages/Notifications";
+import Profile from "./pages/Profile";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
                 <Route path="/articles/:aid/edit" element={<EditArticle />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/notifications" element={<Notifications />} />
+                <Route path="/profile" element={<Profile />} />
             </Routes>
         </BrowserRouter>
     );

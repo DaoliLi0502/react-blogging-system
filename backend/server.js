@@ -30,6 +30,7 @@ app.use("/api", subscriptionRoutes);
 app.use("/api", tagRoutes);
 app.use("/api", userRoutes);
 
+app.use("/avatars", express.static("avatars"));
 app.use("/uploads", express.static("uploads"));
 
 const PORT = 3000;

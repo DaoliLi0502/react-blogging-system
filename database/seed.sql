@@ -132,3 +132,9 @@ VALUES
     (2, 4),
     (3, 1),
     (3, 5);
+    
+INSERT INTO avatars (image_path)
+VALUES
+    ('/avatars/avatar1.jpg'),
+    ('/avatars/avatar2.jpg'),
+    ('/avatars/avatar3.jpg');

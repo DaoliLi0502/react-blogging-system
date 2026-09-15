@@ -120,6 +120,50 @@ router.get("/users/check-username", async (req, res) => {
     }
 });
 
+router.get("/users/me", authMiddleware, async (req, res) => {
+
+    try {
+
+        const db = await dbPromise;
+
+        const user = await db.get(
+            `SELECT
+                u.user_id,
+                u.username,
+                u.real_name,
+                u.date_of_birth,
+                u.description,
+                u.avatar_id,
+                u.is_admin,
+                a.image_path
+             FROM users u
+             LEFT JOIN avatars a
+                ON u.avatar_id = a.avatar_id
+             WHERE u.user_id = ?`,
+            req.user.user_id
+        );
+
+        if (!user) {
+
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+
+        return res.status(200).json({
+            user
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+});
+
 router.put("/users/me", authMiddleware, async (req, res) => {
     const userId = req.user.user_id;
 

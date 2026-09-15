@@ -140,6 +140,42 @@ router.get("/articles", async (req, res) => {
     }
 });
 
+
+router.get("/articles/me", authMiddleware, async (req, res) => {
+    try {
+        const db = await dbPromise;
+
+        const query = `
+            SELECT
+                a.article_id,
+                a.title,
+                a.content,
+                a.image_path,
+                a.author_id,
+                u.username,
+                a.created_at
+            FROM articles a
+            JOIN users u
+                ON a.author_id = u.user_id
+            WHERE a.author_id = ?
+            ORDER BY a.created_at DESC
+        `;
+
+        const articles = await db.all(query, [req.user.user_id]);
+
+        return res.status(200).json({
+            articles
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+});
+
 router.get("/articles/:aid", async (req, res) => {
 
     try {
@@ -188,41 +224,6 @@ router.get("/articles/:aid", async (req, res) => {
 
     } catch (error) {
 
-        console.error(error);
-
-        return res.status(500).json({
-            message: "Internal server error"
-        });
-    }
-});
-
-router.get("/articles/me", authMiddleware, async (req, res) => {
-    try {
-        const db = await dbPromise;
-
-        const query = `
-            SELECT
-                a.article_id,
-                a.title,
-                a.content,
-                a.image_path,
-                a.author_id,
-                u.username,
-                a.created_at
-            FROM articles a
-            JOIN users u
-                ON a.author_id = u.user_id
-            WHERE a.author_id = ?
-            ORDER BY a.created_at DESC
-        `;
-
-        const articles = await db.all(query, [req.user.user_id]);
-
-        return res.status(200).json({
-            articles
-        });
-
-    } catch (error) {
         console.error(error);
 
         return res.status(500).json({
