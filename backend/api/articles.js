@@ -26,7 +26,7 @@ router.get("/articles", async (req, res) => {
         sort,
         order,
         page = 1,
-        limit = 5
+        limit = 10
     } = req.query;
 
     try {
@@ -219,8 +219,31 @@ router.get("/articles", async (req, res) => {
 });
 
 router.get("/articles/me", authMiddleware, async (req, res) => {
+
+    const {
+        page = 1,
+        limit = 10
+    } = req.query;
+
     try {
+
         const db = await dbPromise;
+
+        const pageNumber = Number(page);
+        const limitNumber = Number(limit);
+        const offset = (pageNumber - 1) * limitNumber;
+
+        const countResult = await db.get(
+            `SELECT COUNT(*) AS total
+             FROM articles
+             WHERE author_id = ?`,
+            [req.user.user_id]
+        );
+
+        const totalArticles = countResult.total;
+        const totalPages = Math.ceil(
+            totalArticles / limitNumber
+        );
 
         const query = `
             SELECT
@@ -236,15 +259,30 @@ router.get("/articles/me", authMiddleware, async (req, res) => {
                 ON a.author_id = u.user_id
             WHERE a.author_id = ?
             ORDER BY a.created_at DESC
+            LIMIT ? OFFSET ?
         `;
 
-        const articles = await db.all(query, [req.user.user_id]);
+        const articles = await db.all(
+            query,
+            [
+                req.user.user_id,
+                limitNumber,
+                offset
+            ]
+        );
 
         return res.status(200).json({
-            articles
+            articles,
+            pagination: {
+                page: pageNumber,
+                limit: limitNumber,
+                totalArticles,
+                totalPages
+            }
         });
 
     } catch (error) {
+
         console.error(error);
 
         return res.status(500).json({

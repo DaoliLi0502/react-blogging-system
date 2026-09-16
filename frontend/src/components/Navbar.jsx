@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 function Navbar() {
-
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
@@ -41,6 +40,10 @@ function Navbar() {
 
                 <Link to="/search">
                     Search
+                </Link>
+
+                <Link to="/tags">
+                    Tags
                 </Link>
 
                 <Link
@@ -91,6 +94,10 @@ function Navbar() {
 
             <Link to="/search">
                 Search
+            </Link>
+
+            <Link to="/tags">
+                Tags
             </Link>
         </nav>
     );

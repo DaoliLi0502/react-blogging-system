@@ -11,6 +11,9 @@ function Profile() {
     const [articles, setArticles] = useState([]);
     const [avatars, setAvatars] = useState([]);
 
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+
     const [realName, setRealName] = useState("");
     const [dateOfBirth, setDateOfBirth] = useState("");
     const [description, setDescription] = useState("");
@@ -63,11 +66,16 @@ function Profile() {
             const response = await axios.get(
                 "http://localhost:3000/api/articles/me",
                 {
+                    params: {
+                        page,
+                        limit: 10
+                    },
                     withCredentials: true
                 }
             );
 
             setArticles(response.data.articles);
+            setTotalPages(response.data.pagination.totalPages);
 
         } catch (error) {
 
@@ -97,7 +105,7 @@ function Profile() {
         fetchMyArticles();
         fetchAvatars();
 
-    }, []);
+    }, [page]);
 
     const handleUpdateProfile = async (event) => {
 
@@ -269,6 +277,26 @@ function Profile() {
                     article={article}
                 />
             ))}
+
+            <div>
+                <button
+                    onClick={() => setPage(page - 1)}
+                    disabled={page === 1}
+                >
+                    Previous
+                </button>
+
+                <span>
+                    Page {page} of {totalPages}
+                </span>
+
+                <button
+                    onClick={() => setPage(page + 1)}
+                    disabled={page === totalPages}
+                >
+                    Next
+                </button>
+            </div>
 
             <button onClick={() => navigate("/articles")}>
                 Back to Articles

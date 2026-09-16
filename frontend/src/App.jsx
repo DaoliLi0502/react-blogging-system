@@ -8,6 +8,7 @@ import Notifications from "./pages/Notifications";
 import Profile from "./pages/Profile";
 import SearchArticles from "./pages/SearchArticles";
 import Signup from "./pages/Signup";
+import Tags from "./pages/Tags";
 import Navbar from "./components/Navbar";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/search" element={<SearchArticles />} />
                 <Route path="/signup" element={<Signup />} />
+                <Route path="/tags" element={<Tags />} />
             </Routes>
 
         </BrowserRouter>

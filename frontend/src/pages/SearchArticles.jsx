@@ -1,76 +1,23 @@
 import { useEffect, useState } from "react";
-import { useSearchParams, Link } from "react-router-dom";
 import axios from "axios";
 import ArticleCard from "../components/ArticleCard";
 
 function SearchArticles() {
 
-    const [searchParams] = useSearchParams();
-
     const [search, setSearch] = useState("");
     const [match, setMatch] = useState("partial");
     const [sort, setSort] = useState("date");
     const [order, setOrder] = useState("desc");
+
     const [articles, setArticles] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
-    const [allTags, setAllTags] = useState([]);
-    const [selectedTagId, setSelectedTagId] = useState("");
 
-    useEffect(() => {
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
 
-        const fetchAllTags = async () => {
+    const [hasSearched, setHasSearched] = useState(false);
 
-            try {
-
-                const response = await axios.get(
-                    "http://localhost:3000/api/tags"
-                );
-
-                setAllTags(response.data.tags);
-
-            } catch (error) {
-
-                setErrorMessage(error.response.data.message);
-            }
-        };
-
-        fetchAllTags();
-
-    }, []);
-
-    useEffect(() => {
-
-        const tagId = searchParams.get("tag_id");
-
-        if (tagId) {
-
-            setSelectedTagId(tagId);
-
-            const fetchTagArticles = async () => {
-
-                try {
-
-                    const response = await axios.get(
-                        `http://localhost:3000/api/tags/${tagId}/articles`
-                    );
-
-                    setArticles(response.data.articles);
-                    setErrorMessage("");
-
-                } catch (error) {
-
-                    setErrorMessage(error.response.data.message);
-                }
-            };
-
-            fetchTagArticles();
-        }
-
-    }, [searchParams]);
-
-    const handleSearch = async (event) => {
-
-        event.preventDefault();
+    const fetchArticles = async (pageNumber) => {
 
         try {
 
@@ -81,12 +28,15 @@ function SearchArticles() {
                         search,
                         match,
                         sort,
-                        order
+                        order,
+                        page: pageNumber,
+                        limit: 10
                     }
                 }
             );
 
             setArticles(response.data.articles);
+            setTotalPages(response.data.pagination.totalPages);
             setErrorMessage("");
 
         } catch (error) {
@@ -95,21 +45,25 @@ function SearchArticles() {
         }
     };
 
-    const handleTagSearch = async () => {
+    useEffect(() => {
 
-        try {
+        if (!hasSearched) {
 
-            const response = await axios.get(
-                `http://localhost:3000/api/tags/${selectedTagId}/articles`
-            );
-
-            setArticles(response.data.articles);
-            setErrorMessage("");
-
-        } catch (error) {
-
-            setErrorMessage(error.response.data.message);
+            return;
         }
+
+        fetchArticles(page);
+
+    }, [page]);
+
+    const handleSearch = async (event) => {
+
+        event.preventDefault();
+
+        setPage(1);
+        setHasSearched(true);
+
+        await fetchArticles(1);
     };
 
     return (
@@ -193,50 +147,6 @@ function SearchArticles() {
 
             </form>
 
-            <div>
-                <label>
-                    Search by Tag:
-                    <select
-                        value={selectedTagId}
-                        onChange={(event) => setSelectedTagId(event.target.value)}
-                    >
-                        <option value="">
-                            Select a tag
-                        </option>
-
-                        {allTags.map((tag) => (
-                            <option
-                                key={tag.tag_id}
-                                value={tag.tag_id}
-                            >
-                                {tag.name}
-                            </option>
-                        ))}
-                    </select>
-                </label>
-
-                <button
-                    onClick={handleTagSearch}
-                    disabled={!selectedTagId}
-                >
-                    Search by Tag
-                </button>
-            </div>
-
-            <div>
-                <h2>All Tags</h2>
-
-                <ul>
-                    {allTags.map((tag) => (
-                        <li key={tag.tag_id}>
-                            <Link to={`/search?tag_id=${tag.tag_id}`}>
-                                {tag.name}
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-
             {errorMessage && (
                 <p>{errorMessage}</p>
             )}
@@ -249,6 +159,28 @@ function SearchArticles() {
                     />
                 ))}
             </div>
+
+            {hasSearched && (
+                <div>
+                    <button
+                        onClick={() => setPage(page - 1)}
+                        disabled={page === 1}
+                    >
+                        Previous
+                    </button>
+
+                    <span>
+                        Page {page} of {totalPages}
+                    </span>
+
+                    <button
+                        onClick={() => setPage(page + 1)}
+                        disabled={page === totalPages}
+                    >
+                        Next
+                    </button>
+                </div>
+            )}
         </div>
     );
 }

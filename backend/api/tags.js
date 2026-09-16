@@ -83,9 +83,18 @@ router.get("/tags", async (req, res) => {
 
 router.get("/tags/:tid/articles", async (req, res) => {
 
+    const {
+        page = 1,
+        limit = 10
+    } = req.query;
+
     try {
 
         const db = await dbPromise;
+
+        const pageNumber = Number(page);
+        const limitNumber = Number(limit);
+        const offset = (pageNumber - 1) * limitNumber;
 
         const tag = await db.get(
             `SELECT *
@@ -100,6 +109,18 @@ router.get("/tags/:tid/articles", async (req, res) => {
                 message: "Tag not found"
             });
         }
+
+        const countResult = await db.get(
+            `SELECT COUNT(*) AS total
+             FROM article_tags
+             WHERE tag_id = ?`,
+            req.params.tid
+        );
+
+        const totalArticles = countResult.total;
+        const totalPages = Math.ceil(
+            totalArticles / limitNumber
+        );
 
         const articles = await db.all(
             `SELECT
@@ -116,12 +137,23 @@ router.get("/tags/:tid/articles", async (req, res) => {
              JOIN users u
                  ON a.author_id = u.user_id
              WHERE at.tag_id = ?
-             ORDER BY a.created_at DESC`,
-            req.params.tid
+             ORDER BY a.created_at DESC
+             LIMIT ? OFFSET ?`,
+            [
+                req.params.tid,
+                limitNumber,
+                offset
+            ]
         );
 
         return res.status(200).json({
-            articles
+            articles,
+            pagination: {
+                page: pageNumber,
+                limit: limitNumber,
+                totalArticles,
+                totalPages
+            }
         });
 
     } catch (error) {
