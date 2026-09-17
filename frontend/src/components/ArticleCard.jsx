@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import "./ArticleCard.css";
 
 function ArticleCard({ article }) {
     return (
@@ -16,7 +17,12 @@ function ArticleCard({ article }) {
                 />
             )}
 
-            <p>{article.content}</p>
+            <div
+                dangerouslySetInnerHTML={{
+                    __html: article.content
+                }}
+            />
+
             <p>Author: {article.username}</p>
             <p>Date: {article.created_at}</p>
         </div>

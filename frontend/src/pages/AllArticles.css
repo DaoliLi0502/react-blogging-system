@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+}
+
+#root > div {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+#root > div > h1 {
+    grid-column: 1 / -1;
+}
+
+#root > div > p {
+    grid-column: 1 / -1;
+}
+
+#root > div > div:last-child {
+    grid-column: 1 / -1;
+}
+
+#root > div > div:not(:last-child) {
+    min-width: 0;
+}
+
+@media (max-width: 768px) {
+    #root > div {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}

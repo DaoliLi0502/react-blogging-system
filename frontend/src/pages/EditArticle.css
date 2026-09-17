@@ -1,0 +1,221 @@
+#root > div {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px;
+    box-sizing: border-box;
+}
+
+#root > div > h1 {
+    margin: 0 0 28px;
+    color: var(--text-h);
+    font-size: 36px;
+    line-height: 1.2;
+    text-align: left;
+}
+
+#root > div > form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 28px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg);
+    box-shadow: var(--shadow);
+    box-sizing: border-box;
+}
+
+#root > div > form > div {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#root > div > form > div > p {
+    margin: 0;
+    color: var(--text-h);
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+}
+
+#root > div > form input[type="text"] {
+    width: 100%;
+    padding: 14px 16px;
+    box-sizing: border-box;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--text-h);
+    font: inherit;
+    font-size: 18px;
+}
+
+#root > div > form input[type="text"]:focus {
+    outline: 2px solid #7dd3fc;
+    border-color: #38bdf8;
+}
+
+.tox-tinymce {
+    width: 100% !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    overflow: hidden;
+}
+
+.tox .tox-toolbar,
+.tox .tox-toolbar__primary {
+    background: #f0f9ff !important;
+    border-color: #bae6fd !important;
+}
+
+.tox .tox-edit-area {
+    background: var(--bg) !important;
+}
+
+#root > div > form > div:nth-child(3) {
+    gap: 14px;
+}
+
+#root > div > form > div:nth-child(3) > div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--code-bg);
+    color: var(--text);
+    font-size: 14px;
+    text-align: left;
+}
+
+#root > div > form > div:nth-child(3) > div input[type="radio"] {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    accent-color: #38bdf8;
+}
+
+#root > div > form > div:nth-child(3) > div:has(input:checked) {
+    border-color: #7dd3fc;
+    background: #d9f3ff;
+    color: #164e63;
+}
+
+#root > div > form > div:nth-child(3) > div > p {
+    margin: 0;
+    color: var(--text);
+    font-size: 14px;
+    text-align: left;
+}
+
+#root > div > form > div:nth-child(3) > div > div {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 4px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+}
+
+#root > div > form > div:nth-child(3) img {
+    display: block;
+    width: 300px;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+#root > div > form input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px dashed #7dd3fc;
+    border-radius: 8px;
+    background: #d9f3ff;
+    color: #164e63;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#root > div > form input[type="file"]::file-selector-button {
+    margin-right: 12px;
+    padding: 8px 12px;
+    color: #164e63;
+    background: #ffffff;
+    border: 1px solid #7dd3fc;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#root > div > form input[type="file"]::file-selector-button:hover {
+    color: #ffffff;
+    background: #0284c7;
+}
+
+#root > div > form > button {
+    align-self: flex-start;
+    padding: 12px 24px;
+    color: #164e63;
+    background: #d9f3ff;
+    border: 1px solid #7dd3fc;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+#root > div > form > button:hover {
+    color: #ffffff;
+    background: #0284c7;
+    transform: translateY(-1px);
+}
+
+#root > div > form > button:active {
+    transform: translateY(0);
+}
+
+#root > div > p {
+    margin: 16px 0 0;
+    padding: 12px 16px;
+    color: #b91c1c;
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: left;
+}
+
+@media (max-width: 768px) {
+    #root > div {
+        padding: 20px 12px;
+    }
+
+    #root > div > h1 {
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+
+    #root > div > form {
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    #root > div > form input[type="text"] {
+        font-size: 16px;
+    }
+
+    #root > div > form > button {
+        width: 100%;
+    }
+}

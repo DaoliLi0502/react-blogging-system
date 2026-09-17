@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./CreateArticle.css";
 
 function CreateArticle() {
 

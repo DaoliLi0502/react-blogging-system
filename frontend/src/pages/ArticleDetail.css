@@ -1,0 +1,255 @@
+#root > div {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#root > div > h1 {
+    margin: 32px 0 24px;
+    padding: 0 18px;
+    color: var(--text-h);
+    font-size: 36px;
+    text-align: left;
+}
+
+#root > div > p {
+    padding: 0 18px;
+    color: var(--text);
+    font-size: 14px;
+    text-align: left;
+}
+
+#root > div > div {
+    margin: 0 18px 28px;
+    padding: 28px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg);
+    box-shadow: var(--shadow);
+    box-sizing: border-box;
+}
+
+#root > div > div > h2 {
+    margin: 0 0 24px;
+    color: var(--text-h);
+    font-size: 32px;
+    line-height: 1.25;
+    text-align: left;
+}
+
+#root > div > div > img {
+    display: block;
+    width: 100%;
+    max-height: 460px;
+    margin-bottom: 28px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+#root > div > div > div {
+    margin: 0 0 24px;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    color: var(--text);
+    line-height: 1.8;
+    text-align: left;
+}
+
+#root > div > div > div h1,
+#root > div > div > div h2,
+#root > div > div > div h3 {
+    margin: 24px 0 12px;
+    color: var(--text-h);
+    text-align: left;
+}
+
+#root > div > div > div p {
+    margin: 0 0 14px;
+}
+
+#root > div > div > div ul,
+#root > div > div > div ol {
+    margin: 0 0 16px;
+    padding-left: 28px;
+}
+
+#root > div > div > div a {
+    color: #0284c7;
+}
+
+#root > div > div > div a:hover {
+    color: #0369a1;
+}
+
+#root > div > div > div:nth-of-type(2) {
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--code-bg);
+}
+
+#root > div > div > div:nth-of-type(2) h3 {
+    margin-top: 0;
+    font-size: 18px;
+}
+
+#root > div > div > div:nth-of-type(2) ul {
+    margin-bottom: 0;
+}
+
+#root > div > div > div:nth-of-type(2) li {
+    margin-bottom: 8px;
+}
+
+#root > div > div > div:nth-of-type(2) li a {
+    color: #0284c7;
+    text-decoration: none;
+}
+
+#root > div > div > div:nth-of-type(2) li a:hover {
+    text-decoration: underline;
+}
+
+#root > div > div > p {
+    margin: 10px 0;
+    color: var(--text);
+    font-size: 14px;
+    text-align: left;
+}
+
+#root > div > div > button {
+    margin: 6px 8px 18px 0;
+    padding: 9px 16px;
+    color: #164e63;
+    background: #d9f3ff;
+    border: 1px solid #7dd3fc;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+#root > div > div > button:hover {
+    color: #ffffff;
+    background: #0284c7;
+}
+
+#root > div > div > h3 {
+    margin: 28px 0 16px;
+    color: var(--text-h);
+    font-size: 20px;
+    text-align: left;
+}
+
+#root > div > div > form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+#root > div > div > form textarea {
+    width: 100%;
+    min-height: 110px;
+    padding: 12px;
+    box-sizing: border-box;
+    resize: vertical;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--text-h);
+    font: inherit;
+}
+
+#root > div > div > form textarea:focus {
+    outline: 2px solid #7dd3fc;
+    border-color: #38bdf8;
+}
+
+#root > div > div > form button {
+    align-self: flex-start;
+    padding: 9px 16px;
+    color: #164e63;
+    background: #d9f3ff;
+    border: 1px solid #7dd3fc;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#root > div > div > form button:hover {
+    color: #ffffff;
+    background: #0284c7;
+}
+
+#root > div > div > div:last-child > div {
+    margin: 0 0 16px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--code-bg);
+    box-shadow: none;
+}
+
+#root > div > div > div:last-child > div img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 8px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#root > div > div > div:last-child > div p {
+    margin: 6px 0;
+    color: var(--text);
+    font-size: 14px;
+    text-align: left;
+}
+
+#root > div > div > div:last-child > div p:first-of-type {
+    color: var(--text-h);
+    font-weight: 600;
+}
+
+#root > div > div > div:last-child > div button {
+    margin-top: 8px;
+    padding: 6px 12px;
+    color: #164e63;
+    background: #d9f3ff;
+    border: 1px solid #7dd3fc;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+#root > div > div > div:last-child > div button:hover {
+    color: #ffffff;
+    background: #0284c7;
+}
+
+@media (max-width: 768px) {
+    #root > div > h1 {
+        padding: 0 12px;
+        font-size: 30px;
+    }
+
+    #root > div > p {
+        padding: 0 12px;
+    }
+
+    #root > div > div {
+        margin: 0 12px 20px;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    #root > div > div > h2 {
+        font-size: 26px;
+    }
+
+    #root > div > div > img {
+        max-height: 280px;
+    }
+}

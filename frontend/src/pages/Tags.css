@@ -1,0 +1,113 @@
+#root > div > div {
+    width: 100%;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 24px 40px;
+    box-sizing: border-box;
+}
+
+#root > div > div > h1 {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+#root > div > div > p {
+    display: inline-block;
+    margin: 0 10px 12px 0;
+}
+
+#root > div > div > p a {
+    display: inline-block;
+    padding: 8px 16px;
+    border: 1px solid #7dd3fc;
+    border-radius: 20px;
+    background: #d9f3ff;
+    color: #164e63;
+    font-size: 15px;
+    text-decoration: none;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+#root > div > div > p a:hover {
+    border-color: #38bdf8;
+    background: #38bdf8;
+    color: #ffffff;
+}
+
+#root > div > div > div {
+    margin-top: 36px;
+}
+
+#root > div > div > div > h1 {
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 26px;
+}
+
+#root > div > div > div > div {
+    margin-bottom: 24px;
+}
+
+#root > div > div button {
+    padding: 10px 18px;
+    border: 1px solid #7dd3fc;
+    border-radius: 6px;
+    background: #d9f3ff;
+    color: #164e63;
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+#root > div > div button:hover {
+    border-color: #38bdf8;
+    background: #38bdf8;
+    color: #ffffff;
+}
+
+#root > div > div button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+#root > div > div > div > div:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 30px;
+}
+
+#root > div > div > div > div:last-child span {
+    min-width: 110px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    #root > div > div {
+        margin: 24px auto;
+        padding: 0 16px 30px;
+    }
+
+    #root > div > div > div > h1 {
+        font-size: 22px;
+    }
+
+    #root > div > div > div > div:last-child {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    #root > div > div > div > div:last-child {
+        flex-wrap: wrap;
+    }
+}

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import ArticleCard from "../components/ArticleCard";
+import "./Tags.css";
 
 function Tags() {
     const [searchParams] = useSearchParams();
