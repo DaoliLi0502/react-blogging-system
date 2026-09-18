@@ -5,6 +5,7 @@ import ArticleCard from "../components/ArticleCard";
 import "./Tags.css";
 
 function Tags() {
+
     const [searchParams] = useSearchParams();
 
     const tagId = searchParams.get("tag_id");
@@ -40,6 +41,12 @@ function Tags() {
         fetchTags();
 
     }, []);
+
+    useEffect(() => {
+
+        setPage(1);
+
+    }, [tagId]);
 
     useEffect(() => {
 
