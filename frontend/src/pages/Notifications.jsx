@@ -143,7 +143,7 @@ function Notifications() {
 
                             {notification.avatar_path && (
                                 <img
-                                    src={`http://localhost:3000/${notification.avatar_path.replace(/\\/g, "/")}`}
+                                    src={`http://localhost:3000${notification.avatar_path}`}
                                     alt={notification.commenter_username}
                                     width="50"
                                 />
@@ -190,7 +190,7 @@ function Notifications() {
 
                             {notification.avatar_path && (
                                 <img
-                                    src={`http://localhost:3000/${notification.avatar_path.replace(/\\/g, "/")}`}
+                                    src={`http://localhost:3000${notification.avatar_path}`}
                                     alt={notification.author_username}
                                     width="50"
                                 />

@@ -12,7 +12,7 @@ function ArticleCard({ article }) {
 
             {article.image_path && (
                 <img
-                    src={`http://localhost:3000/${article.image_path}`}
+                    src={`http://localhost:3000${article.image_path}`}
                     alt={article.title}
                 />
             )}

@@ -425,7 +425,7 @@ function ArticleDetail() {
 
                     {article.image_path && (
                         <img
-                            src={`http://localhost:3000/${article.image_path.replace(/\\/g, "/")}`}
+                            src={`http://localhost:3000${article.image_path}`}
                             alt={article.title}
                         />
                     )}
@@ -575,7 +575,7 @@ function ArticleDetail() {
 
                                     {comment.avatar_path && (
                                         <img
-                                            src={`http://localhost:3000/${comment.avatar_path.replace(/\\/g, "/")}`}
+                                            src={`http://localhost:3000${comment.avatar_path}`}
                                             alt={comment.username}
                                             width="50"
                                         />

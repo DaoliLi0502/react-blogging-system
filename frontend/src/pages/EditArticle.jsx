@@ -206,7 +206,7 @@ function EditArticle() {
                                 <p>Current image:</p>
 
                                 <img
-                                    src={`http://localhost:3000/${article.image_path.replace(/\\/g, "/")}`}
+                                    src={`http://localhost:3000${article.image_path}`}
                                     alt="Current article"
                                     width="300"
                                 />
