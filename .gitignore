@@ -9,6 +9,4 @@ dist/
 
 *.db
 
-backend/uploads/
-
 .DS_Store

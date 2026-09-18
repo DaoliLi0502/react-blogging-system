@@ -1,140 +1,424 @@
-INSERT INTO users (
-    username,
-    password_hash,
-    real_name,
-    date_of_birth,
-    description,
-    avatar_id,
-    is_admin
-) VALUES (
-    'testuser',
-    '$2b$10$lWe5d.IJbfzHCplrrhbLOuXhDbm7XEYwGpOVwzefh2mAuMpBiMs2i',
-    'Test User',
-    '1995-01-01',
-    'Test account',
-    NULL,
-    0
-);
-
-INSERT INTO articles (
-    title,
-    content,
-    author_id
-) VALUES (
-    'My First Article',
-    'This is my first article.',
-    2
-);
-
-INSERT INTO articles (
-    title,
-    content,
-    author_id
-) VALUES (
-    'Learning React',
-    'I am learning React and building a blogging system.',
-    2
-);
-
-INSERT INTO articles (
-    title,
-    content,
-    author_id
-) VALUES (
-    'Hello World',
-    'Hello, this is a test article.',
-    1
-);
-
-INSERT INTO comments (
-    article_id,
-    user_id,
-    content
-) VALUES (
-    1,
-    2,
-    'This is a very interesting article.'
-);
-
-INSERT INTO comments (
-    article_id,
-    user_id,
-    content
-) VALUES (
-    1,
-    1,
-    'Thank you for sharing this article.'
-);
-
-INSERT INTO comments (
-    article_id,
-    user_id,
-    content
-) VALUES (
-    2,
-    1,
-    'React is very useful for building user interfaces.'
-);
-
-INSERT INTO comments (
-    article_id,
-    user_id,
-    content
-) VALUES (
-    2,
-    2,
-    'I am also learning React.'
-);
-
-INSERT INTO comments (
-    article_id,
-    user_id,
-    content
-) VALUES (
-    3,
-    2,
-    'Hello Alice, nice article!'
-);
-
-INSERT INTO comment_notifications (
-    user_id,
-    comment_id,
-    is_read
-)
-VALUES
-    (1, 1, 0),
-    (1, 2, 1);
-
-INSERT INTO subscription_notifications (
-    user_id,
-    article_id,
-    is_read
-)
-VALUES
-    (1, 2, 0),
-    (1, 3, 1);
-
-INSERT INTO tags (name)
-VALUES
-    ('React'),
-    ('JavaScript'),
-    ('Node.js'),
-    ('SQLite'),
-    ('Web Development'),
-    ('Programming');
-
-INSERT INTO article_tags (article_id, tag_id)
-VALUES
-    (1, 1),
-    (1, 2),
-    (1, 6),
-    (2, 3),
-    (2, 4),
-    (3, 1),
-    (3, 5);
-    
-INSERT INTO avatars (image_path)
-VALUES
-    ('/avatars/avatar1.jpg'),
-    ('/avatars/avatar2.jpg'),
-    ('/avatars/avatar3.jpg');
+INSERT INTO avatars (image_path) VALUES ('/avatars/avatar001.jpg');
+INSERT INTO avatars (image_path) VALUES ('/avatars/avatar002.jpg');
+INSERT INTO avatars (image_path) VALUES ('/avatars/avatar003.jpg');
+INSERT INTO avatars (image_path) VALUES ('/avatars/avatar004.jpg');
+INSERT INTO avatars (image_path) VALUES ('/avatars/avatar005.jpg');
+INSERT INTO avatars (image_path) VALUES ('/avatars/avatar006.jpg');
+INSERT INTO avatars (image_path) VALUES ('/avatars/avatar007.jpg');
+INSERT INTO avatars (image_path) VALUES ('/avatars/avatar008.jpg');
+INSERT INTO avatars (image_path) VALUES ('/avatars/avatar009.jpg');
+INSERT INTO avatars (image_path) VALUES ('/avatars/avatar010.jpg');
+INSERT INTO users (username,password_hash,real_name,date_of_birth,description,avatar_id,is_admin) VALUES ('user01','$2b$10$XTbIJL2djLrUpW6U3dAN1OLloErJQqVMQ.lo6S6J99iYiOJZDpY3i','Alice Chen','1995-01-15','Technology enthusiast interested in software and digital life.',1,1);
+INSERT INTO users (username,password_hash,real_name,date_of_birth,description,avatar_id,is_admin) VALUES ('user02','$2b$10$XTbIJL2djLrUpW6U3dAN1OLloErJQqVMQ.lo6S6J99iYiOJZDpY3i','Ben Smith','1994-03-22','Backend developer interested in databases and APIs.',2,0);
+INSERT INTO users (username,password_hash,real_name,date_of_birth,description,avatar_id,is_admin) VALUES ('user03','$2b$10$XTbIJL2djLrUpW6U3dAN1OLloErJQqVMQ.lo6S6J99iYiOJZDpY3i','Charlie Wang','1997-06-08','Student exploring web development and design.',3,0);
+INSERT INTO users (username,password_hash,real_name,date_of_birth,description,avatar_id,is_admin) VALUES ('user04','$2b$10$XTbIJL2djLrUpW6U3dAN1OLloErJQqVMQ.lo6S6J99iYiOJZDpY3i','David Brown','1992-09-17','Software engineer who enjoys practical programming projects.',4,0);
+INSERT INTO users (username,password_hash,real_name,date_of_birth,description,avatar_id,is_admin) VALUES ('user05','$2b$10$XTbIJL2djLrUpW6U3dAN1OLloErJQqVMQ.lo6S6J99iYiOJZDpY3i','Emma Wilson','1996-11-03','Writer interested in productivity and digital tools.',5,0);
+INSERT INTO users (username,password_hash,real_name,date_of_birth,description,avatar_id,is_admin) VALUES ('user06','$2b$10$XTbIJL2djLrUpW6U3dAN1OLloErJQqVMQ.lo6S6J99iYiOJZDpY3i','Frank Lee','1993-02-27','Developer interested in JavaScript and frontend development.',6,0);
+INSERT INTO users (username,password_hash,real_name,date_of_birth,description,avatar_id,is_admin) VALUES ('user07','$2b$10$XTbIJL2djLrUpW6U3dAN1OLloErJQqVMQ.lo6S6J99iYiOJZDpY3i','Grace Taylor','1998-05-19','Technology student interested in data and security.',7,0);
+INSERT INTO users (username,password_hash,real_name,date_of_birth,description,avatar_id,is_admin) VALUES ('user08','$2b$10$XTbIJL2djLrUpW6U3dAN1OLloErJQqVMQ.lo6S6J99iYiOJZDpY3i','Henry Davis','1991-12-11','Developer interested in programming and software engineering.',8,0);
+INSERT INTO tags (tag_id,name) VALUES (1,'JavaScript');
+INSERT INTO tags (tag_id,name) VALUES (2,'React');
+INSERT INTO tags (tag_id,name) VALUES (3,'Node.js');
+INSERT INTO tags (tag_id,name) VALUES (4,'Database');
+INSERT INTO tags (tag_id,name) VALUES (5,'Web Development');
+INSERT INTO tags (tag_id,name) VALUES (6,'Productivity');
+INSERT INTO tags (tag_id,name) VALUES (7,'Security');
+INSERT INTO tags (tag_id,name) VALUES (8,'Programming');
+INSERT INTO tags (tag_id,name) VALUES (9,'Technology');
+INSERT INTO tags (tag_id,name) VALUES (10,'Travel');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (1,'Getting Started with React','<h1>Getting Started with React</h1><p>This is a sample article about <strong>getting started with react</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img001.jpg',1,'2026-08-01 10:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (2,'Understanding JavaScript Functions','<h1>Understanding JavaScript Functions</h1><p>This is a sample article about <strong>understanding javascript functions</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img002.jpg',2,'2026-08-02 11:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (3,'A Practical Introduction to Node.js','<h1>A Practical Introduction to Node.js</h1><p>This is a sample article about <strong>a practical introduction to node.js</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img003.jpg',3,'2026-08-03 12:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (4,'Designing a Simple Database','<h1>Designing a Simple Database</h1><p>This is a sample article about <strong>designing a simple database</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img004.jpg',4,'2026-08-04 13:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (5,'Building Better Web Interfaces','<h1>Building Better Web Interfaces</h1><p>This is a sample article about <strong>building better web interfaces</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img005.jpg',5,'2026-08-05 14:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (6,'How I Organise My Study Time','<h1>How I Organise My Study Time</h1><p>This is a sample article about <strong>how i organise my study time</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img006.jpg',6,'2026-08-06 15:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (7,'Why Password Security Matters','<h1>Why Password Security Matters</h1><p>This is a sample article about <strong>why password security matters</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img007.jpg',7,'2026-08-07 16:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (8,'Learning Programming Step by Step','<h1>Learning Programming Step by Step</h1><p>This is a sample article about <strong>learning programming step by step</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img008.jpg',8,'2026-08-08 09:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (9,'Useful Tools for Modern Developers','<h1>Useful Tools for Modern Developers</h1><p>This is a sample article about <strong>useful tools for modern developers</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img009.jpg',1,'2026-08-09 10:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (10,'A Weekend Technology Project','<h1>A Weekend Technology Project</h1><p>This is a sample article about <strong>a weekend technology project</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img010.jpg',2,'2026-08-10 11:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (11,'Understanding React State','<h1>Understanding React State</h1><p>This is a sample article about <strong>understanding react state</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img011.jpg',3,'2026-08-11 12:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (12,'Working with REST APIs','<h1>Working with REST APIs</h1><p>This is a sample article about <strong>working with rest apis</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img012.jpg',4,'2026-08-12 13:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (13,'Choosing the Right Database','<h1>Choosing the Right Database</h1><p>This is a sample article about <strong>choosing the right database</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img013.jpg',5,'2026-08-13 14:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (14,'Making a Website Easier to Use','<h1>Making a Website Easier to Use</h1><p>This is a sample article about <strong>making a website easier to use</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img014.jpg',6,'2026-08-14 15:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (15,'Simple Productivity Habits','<h1>Simple Productivity Habits</h1><p>This is a sample article about <strong>simple productivity habits</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img015.jpg',7,'2026-08-15 16:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (16,'Introduction to Web Security','<h1>Introduction to Web Security</h1><p>This is a sample article about <strong>introduction to web security</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img016.jpg',8,'2026-08-16 09:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (17,'How to Debug a JavaScript Application','<h1>How to Debug a JavaScript Application</h1><p>This is a sample article about <strong>how to debug a javascript application</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img017.jpg',1,'2026-08-17 10:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (18,'Writing Cleaner Code','<h1>Writing Cleaner Code</h1><p>This is a sample article about <strong>writing cleaner code</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img018.jpg',2,'2026-08-18 11:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (19,'What Makes a Good API','<h1>What Makes a Good API</h1><p>This is a sample article about <strong>what makes a good api</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img019.jpg',3,'2026-08-19 12:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (20,'Planning a Small Software Project','<h1>Planning a Small Software Project</h1><p>This is a sample article about <strong>planning a small software project</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img020.jpg',4,'2026-08-20 13:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (21,'React Components in Practice','<h1>React Components in Practice</h1><p>This is a sample article about <strong>react components in practice</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img021.jpg',5,'2026-08-21 14:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (22,'Handling Data in Node.js','<h1>Handling Data in Node.js</h1><p>This is a sample article about <strong>handling data in node.js</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img022.jpg',6,'2026-08-22 15:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (23,'Database Relationships Explained','<h1>Database Relationships Explained</h1><p>This is a sample article about <strong>database relationships explained</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img023.jpg',7,'2026-08-23 16:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (24,'Responsive Web Design Basics','<h1>Responsive Web Design Basics</h1><p>This is a sample article about <strong>responsive web design basics</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img024.jpg',8,'2026-08-24 09:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (25,'Keeping Development Notes','<h1>Keeping Development Notes</h1><p>This is a sample article about <strong>keeping development notes</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img025.jpg',1,'2026-08-25 10:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (26,'Protecting User Accounts','<h1>Protecting User Accounts</h1><p>This is a sample article about <strong>protecting user accounts</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img026.jpg',2,'2026-08-26 11:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (27,'Testing a Web Application','<h1>Testing a Web Application</h1><p>This is a sample article about <strong>testing a web application</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img027.jpg',3,'2026-08-27 12:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (28,'Learning from Software Projects','<h1>Learning from Software Projects</h1><p>This is a sample article about <strong>learning from software projects</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img028.jpg',4,'2026-08-28 13:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (29,'Technology Trends I Am Following','<h1>Technology Trends I Am Following</h1><p>This is a sample article about <strong>technology trends i am following</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img029.jpg',5,'2026-08-29 14:00:00');
+INSERT INTO articles (article_id,title,content,image_path,author_id,created_at) VALUES (30,'Lessons from Building a Blog','<h1>Lessons from Building a Blog</h1><p>This is a sample article about <strong>lessons from building a blog</strong>. It contains <em>formatted text</em> for testing the blogging system.</p><p>The main idea is to <u>keep the content clear</u> and useful for readers.</p><h2>Key Points</h2><ul><li>Keep the structure simple.</li><li>Use clear examples.</li><li>Test the result carefully.</li></ul><p>A practical workflow is to start with a small goal and improve it step by step.</p><ol><li>Plan the task.</li><li>Build the first version.</li><li>Test and refine it.</li></ol>','/uploads/img030.jpg',6,'2026-08-30 15:00:00');
+INSERT INTO article_tags (article_id,tag_id) VALUES (1,2);
+INSERT INTO article_tags (article_id,tag_id) VALUES (1,5);
+INSERT INTO article_tags (article_id,tag_id) VALUES (1,8);
+INSERT INTO article_tags (article_id,tag_id) VALUES (2,1);
+INSERT INTO article_tags (article_id,tag_id) VALUES (2,8);
+INSERT INTO article_tags (article_id,tag_id) VALUES (2,9);
+INSERT INTO article_tags (article_id,tag_id) VALUES (3,3);
+INSERT INTO article_tags (article_id,tag_id) VALUES (3,5);
+INSERT INTO article_tags (article_id,tag_id) VALUES (3,8);
+INSERT INTO article_tags (article_id,tag_id) VALUES (4,4);
+INSERT INTO article_tags (article_id,tag_id) VALUES (4,8);
+INSERT INTO article_tags (article_id,tag_id) VALUES (4,9);
+INSERT INTO article_tags (article_id,tag_id) VALUES (5,2);
+INSERT INTO article_tags (article_id,tag_id) VALUES (5,5);
+INSERT INTO article_tags (article_id,tag_id) VALUES (5,9);
+INSERT INTO article_tags (article_id,tag_id) VALUES (6,6);
+INSERT INTO article_tags (article_id,tag_id) VALUES (6,9);
+INSERT INTO article_tags (article_id,tag_id) VALUES (6,10);
+INSERT INTO article_tags (article_id,tag_id) VALUES (7,7);
+INSERT INTO article_tags (article_id,tag_id) VALUES (7,8);
+INSERT INTO article_tags (article_id,tag_id) VALUES (7,9);
+INSERT INTO article_tags (article_id,tag_id) VALUES (8,8);
+INSERT INTO article_tags (article_id,tag_id) VALUES (8,9);
+INSERT INTO article_tags (article_id,tag_id) VALUES (8,1);
+INSERT INTO article_tags (article_id,tag_id) VALUES (9,1);
+INSERT INTO article_tags (article_id,tag_id) VALUES (9,3);
+INSERT INTO article_tags (article_id,tag_id) VALUES (9,9);
+INSERT INTO article_tags (article_id,tag_id) VALUES (10,5);
+INSERT INTO article_tags (article_id,tag_id) VALUES (10,6);
+INSERT INTO article_tags (article_id,tag_id) VALUES (10,9);
+INSERT INTO article_tags (article_id,tag_id) VALUES (11,1);
+INSERT INTO article_tags (article_id,tag_id) VALUES (11,2);
+INSERT INTO article_tags (article_id,tag_id) VALUES (11,8);
+INSERT INTO article_tags (article_id,tag_id) VALUES (12,3);
+INSERT INTO article_tags (article_id,tag_id) VALUES (12,5);
+INSERT INTO article_tags (article_id,tag_id) VALUES (12,4);
+INSERT INTO article_tags (article_id,tag_id) VALUES (13,4);
+INSERT INTO article_tags (article_id,tag_id) VALUES (13,8);
+INSERT INTO article_tags (article_id,tag_id) VALUES (13,9);
+INSERT INTO article_tags (article_id,tag_id) VALUES (14,2);
+INSERT INTO article_tags (article_id,tag_id) VALUES (14,5);
+INSERT INTO article_tags (article_id,tag_id) VALUES (14,6);
+INSERT INTO article_tags (article_id,tag_id) VALUES (15,6);
+INSERT INTO article_tags (article_id,tag_id) VALUES (15,9);
+INSERT INTO article_tags (article_id,tag_id) VALUES (15,8);
+INSERT INTO article_tags (article_id,tag_id) VALUES (16,7);
+INSERT INTO article_tags (article_id,tag_id) VALUES (16,9);
+INSERT INTO article_tags (article_id,tag_id) VALUES (16,3);
+INSERT INTO article_tags (article_id,tag_id) VALUES (17,1);
+INSERT INTO article_tags (article_id,tag_id) VALUES (17,8);
+INSERT INTO article_tags (article_id,tag_id) VALUES (17,3);
+INSERT INTO article_tags (article_id,tag_id) VALUES (18,8);
+INSERT INTO article_tags (article_id,tag_id) VALUES (18,1);
+INSERT INTO article_tags (article_id,tag_id) VALUES (18,9);
+INSERT INTO article_tags (article_id,tag_id) VALUES (19,3);
+INSERT INTO article_tags (article_id,tag_id) VALUES (19,5);
+INSERT INTO article_tags (article_id,tag_id) VALUES (19,7);
+INSERT INTO article_tags (article_id,tag_id) VALUES (20,5);
+INSERT INTO article_tags (article_id,tag_id) VALUES (20,6);
+INSERT INTO article_tags (article_id,tag_id) VALUES (20,8);
+INSERT INTO article_tags (article_id,tag_id) VALUES (21,1);
+INSERT INTO article_tags (article_id,tag_id) VALUES (21,2);
+INSERT INTO article_tags (article_id,tag_id) VALUES (21,5);
+INSERT INTO article_tags (article_id,tag_id) VALUES (22,3);
+INSERT INTO article_tags (article_id,tag_id) VALUES (22,4);
+INSERT INTO article_tags (article_id,tag_id) VALUES (22,8);
+INSERT INTO article_tags (article_id,tag_id) VALUES (23,4);
+INSERT INTO article_tags (article_id,tag_id) VALUES (23,8);
+INSERT INTO article_tags (article_id,tag_id) VALUES (23,2);
+INSERT INTO article_tags (article_id,tag_id) VALUES (24,5);
+INSERT INTO article_tags (article_id,tag_id) VALUES (24,2);
+INSERT INTO article_tags (article_id,tag_id) VALUES (24,9);
+INSERT INTO article_tags (article_id,tag_id) VALUES (25,6);
+INSERT INTO article_tags (article_id,tag_id) VALUES (25,8);
+INSERT INTO article_tags (article_id,tag_id) VALUES (25,1);
+INSERT INTO article_tags (article_id,tag_id) VALUES (26,7);
+INSERT INTO article_tags (article_id,tag_id) VALUES (26,9);
+INSERT INTO article_tags (article_id,tag_id) VALUES (26,8);
+INSERT INTO article_tags (article_id,tag_id) VALUES (27,1);
+INSERT INTO article_tags (article_id,tag_id) VALUES (27,3);
+INSERT INTO article_tags (article_id,tag_id) VALUES (27,7);
+INSERT INTO article_tags (article_id,tag_id) VALUES (28,8);
+INSERT INTO article_tags (article_id,tag_id) VALUES (28,1);
+INSERT INTO article_tags (article_id,tag_id) VALUES (28,4);
+INSERT INTO article_tags (article_id,tag_id) VALUES (29,9);
+INSERT INTO article_tags (article_id,tag_id) VALUES (29,7);
+INSERT INTO article_tags (article_id,tag_id) VALUES (29,5);
+INSERT INTO article_tags (article_id,tag_id) VALUES (30,2);
+INSERT INTO article_tags (article_id,tag_id) VALUES (30,3);
+INSERT INTO article_tags (article_id,tag_id) VALUES (30,6);
+INSERT INTO user_subscriptions (subscriber_id,subscribed_user_id) VALUES (1,2);
+INSERT INTO user_subscriptions (subscriber_id,subscribed_user_id) VALUES (1,3);
+INSERT INTO user_subscriptions (subscriber_id,subscribed_user_id) VALUES (1,4);
+INSERT INTO user_subscriptions (subscriber_id,subscribed_user_id) VALUES (2,1);
+INSERT INTO user_subscriptions (subscriber_id,subscribed_user_id) VALUES (2,5);
+INSERT INTO user_subscriptions (subscriber_id,subscribed_user_id) VALUES (2,6);
+INSERT INTO user_subscriptions (subscriber_id,subscribed_user_id) VALUES (3,1);
+INSERT INTO user_subscriptions (subscriber_id,subscribed_user_id) VALUES (3,7);
+INSERT INTO user_subscriptions (subscriber_id,subscribed_user_id) VALUES (4,2);
+INSERT INTO user_subscriptions (subscriber_id,subscribed_user_id) VALUES (4,8);
+INSERT INTO user_subscriptions (subscriber_id,subscribed_user_id) VALUES (5,1);
+INSERT INTO user_subscriptions (subscriber_id,subscribed_user_id) VALUES (5,4);
+INSERT INTO user_subscriptions (subscriber_id,subscribed_user_id) VALUES (5,7);
+INSERT INTO user_subscriptions (subscriber_id,subscribed_user_id) VALUES (6,2);
+INSERT INTO user_subscriptions (subscriber_id,subscribed_user_id) VALUES (6,5);
+INSERT INTO user_subscriptions (subscriber_id,subscribed_user_id) VALUES (7,3);
+INSERT INTO user_subscriptions (subscriber_id,subscribed_user_id) VALUES (7,6);
+INSERT INTO user_subscriptions (subscriber_id,subscribed_user_id) VALUES (8,1);
+INSERT INTO user_subscriptions (subscriber_id,subscribed_user_id) VALUES (8,4);
+INSERT INTO user_subscriptions (subscriber_id,subscribed_user_id) VALUES (8,7);
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (1,1,4,'I enjoyed reading this article. Comment 1 adds another perspective on the topic.','2026-08-02 20:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (2,2,5,'I enjoyed reading this article. Comment 2 adds another perspective on the topic.','2026-08-03 21:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (3,3,6,'I enjoyed reading this article. Comment 3 adds another perspective on the topic.','2026-08-04 22:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (4,4,7,'I enjoyed reading this article. Comment 4 adds another perspective on the topic.','2026-08-05 23:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (5,5,8,'I enjoyed reading this article. Comment 5 adds another perspective on the topic.','2026-08-07 00:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (6,6,1,'I enjoyed reading this article. Comment 6 adds another perspective on the topic.','2026-08-08 01:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (7,7,2,'I enjoyed reading this article. Comment 7 adds another perspective on the topic.','2026-08-09 02:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (8,8,3,'I enjoyed reading this article. Comment 8 adds another perspective on the topic.','2026-08-09 19:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (9,9,4,'I enjoyed reading this article. Comment 9 adds another perspective on the topic.','2026-08-10 20:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (10,10,5,'I enjoyed reading this article. Comment 10 adds another perspective on the topic.','2026-08-11 21:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (11,11,6,'I enjoyed reading this article. Comment 11 adds another perspective on the topic.','2026-08-12 22:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (12,12,7,'I enjoyed reading this article. Comment 12 adds another perspective on the topic.','2026-08-13 23:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (13,13,8,'I enjoyed reading this article. Comment 13 adds another perspective on the topic.','2026-08-15 00:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (14,14,1,'I enjoyed reading this article. Comment 14 adds another perspective on the topic.','2026-08-16 01:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (15,15,2,'I enjoyed reading this article. Comment 15 adds another perspective on the topic.','2026-08-17 02:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (16,16,3,'I enjoyed reading this article. Comment 16 adds another perspective on the topic.','2026-08-17 19:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (17,17,4,'I enjoyed reading this article. Comment 17 adds another perspective on the topic.','2026-08-18 20:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (18,18,5,'I enjoyed reading this article. Comment 18 adds another perspective on the topic.','2026-08-19 21:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (19,19,6,'I enjoyed reading this article. Comment 19 adds another perspective on the topic.','2026-08-20 22:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (20,20,7,'I enjoyed reading this article. Comment 20 adds another perspective on the topic.','2026-08-01 23:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (21,21,8,'I enjoyed reading this article. Comment 21 adds another perspective on the topic.','2026-08-03 00:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (22,22,1,'I enjoyed reading this article. Comment 22 adds another perspective on the topic.','2026-08-04 01:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (23,23,2,'I enjoyed reading this article. Comment 23 adds another perspective on the topic.','2026-08-05 02:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (24,24,3,'I enjoyed reading this article. Comment 24 adds another perspective on the topic.','2026-08-05 19:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (25,25,4,'I enjoyed reading this article. Comment 25 adds another perspective on the topic.','2026-08-06 20:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (26,26,5,'I enjoyed reading this article. Comment 26 adds another perspective on the topic.','2026-08-07 21:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (27,27,6,'I enjoyed reading this article. Comment 27 adds another perspective on the topic.','2026-08-08 22:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (28,28,7,'I enjoyed reading this article. Comment 28 adds another perspective on the topic.','2026-08-09 23:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (29,29,8,'I enjoyed reading this article. Comment 29 adds another perspective on the topic.','2026-08-11 00:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (30,30,1,'I enjoyed reading this article. Comment 30 adds another perspective on the topic.','2026-08-12 01:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (31,1,2,'I enjoyed reading this article. Comment 31 adds another perspective on the topic.','2026-08-13 02:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (32,2,3,'I enjoyed reading this article. Comment 32 adds another perspective on the topic.','2026-08-13 19:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (33,3,4,'I enjoyed reading this article. Comment 33 adds another perspective on the topic.','2026-08-14 20:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (34,4,5,'I enjoyed reading this article. Comment 34 adds another perspective on the topic.','2026-08-15 21:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (35,5,6,'I enjoyed reading this article. Comment 35 adds another perspective on the topic.','2026-08-16 22:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (36,6,7,'I enjoyed reading this article. Comment 36 adds another perspective on the topic.','2026-08-17 23:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (37,7,8,'I enjoyed reading this article. Comment 37 adds another perspective on the topic.','2026-08-19 00:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (38,8,1,'I enjoyed reading this article. Comment 38 adds another perspective on the topic.','2026-08-20 01:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (39,9,2,'I enjoyed reading this article. Comment 39 adds another perspective on the topic.','2026-08-21 02:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (40,10,3,'I enjoyed reading this article. Comment 40 adds another perspective on the topic.','2026-08-01 19:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (41,11,4,'I enjoyed reading this article. Comment 41 adds another perspective on the topic.','2026-08-02 20:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (42,12,5,'I enjoyed reading this article. Comment 42 adds another perspective on the topic.','2026-08-03 21:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (43,13,6,'I enjoyed reading this article. Comment 43 adds another perspective on the topic.','2026-08-04 22:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (44,14,7,'I enjoyed reading this article. Comment 44 adds another perspective on the topic.','2026-08-05 23:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (45,15,8,'I enjoyed reading this article. Comment 45 adds another perspective on the topic.','2026-08-07 00:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (46,16,1,'I enjoyed reading this article. Comment 46 adds another perspective on the topic.','2026-08-08 01:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (47,17,2,'I enjoyed reading this article. Comment 47 adds another perspective on the topic.','2026-08-09 02:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (48,18,3,'I enjoyed reading this article. Comment 48 adds another perspective on the topic.','2026-08-09 19:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (49,19,4,'I enjoyed reading this article. Comment 49 adds another perspective on the topic.','2026-08-10 20:00:00');
+INSERT INTO comments (comment_id,article_id,user_id,content,created_at) VALUES (50,20,5,'I enjoyed reading this article. Comment 50 adds another perspective on the topic.','2026-08-11 21:00:00');
+INSERT INTO article_likes (user_id,article_id) VALUES (1,1);
+INSERT INTO article_likes (user_id,article_id) VALUES (1,3);
+INSERT INTO article_likes (user_id,article_id) VALUES (1,4);
+INSERT INTO article_likes (user_id,article_id) VALUES (1,6);
+INSERT INTO article_likes (user_id,article_id) VALUES (1,7);
+INSERT INTO article_likes (user_id,article_id) VALUES (1,9);
+INSERT INTO article_likes (user_id,article_id) VALUES (1,10);
+INSERT INTO article_likes (user_id,article_id) VALUES (1,12);
+INSERT INTO article_likes (user_id,article_id) VALUES (1,13);
+INSERT INTO article_likes (user_id,article_id) VALUES (1,15);
+INSERT INTO article_likes (user_id,article_id) VALUES (1,16);
+INSERT INTO article_likes (user_id,article_id) VALUES (1,18);
+INSERT INTO article_likes (user_id,article_id) VALUES (1,19);
+INSERT INTO article_likes (user_id,article_id) VALUES (1,21);
+INSERT INTO article_likes (user_id,article_id) VALUES (1,22);
+INSERT INTO article_likes (user_id,article_id) VALUES (1,24);
+INSERT INTO article_likes (user_id,article_id) VALUES (1,25);
+INSERT INTO article_likes (user_id,article_id) VALUES (1,27);
+INSERT INTO article_likes (user_id,article_id) VALUES (1,28);
+INSERT INTO article_likes (user_id,article_id) VALUES (1,30);
+INSERT INTO article_likes (user_id,article_id) VALUES (2,2);
+INSERT INTO article_likes (user_id,article_id) VALUES (2,3);
+INSERT INTO article_likes (user_id,article_id) VALUES (2,5);
+INSERT INTO article_likes (user_id,article_id) VALUES (2,6);
+INSERT INTO article_likes (user_id,article_id) VALUES (2,8);
+INSERT INTO article_likes (user_id,article_id) VALUES (2,9);
+INSERT INTO article_likes (user_id,article_id) VALUES (2,11);
+INSERT INTO article_likes (user_id,article_id) VALUES (2,12);
+INSERT INTO article_likes (user_id,article_id) VALUES (2,14);
+INSERT INTO article_likes (user_id,article_id) VALUES (2,15);
+INSERT INTO article_likes (user_id,article_id) VALUES (2,17);
+INSERT INTO article_likes (user_id,article_id) VALUES (2,18);
+INSERT INTO article_likes (user_id,article_id) VALUES (2,20);
+INSERT INTO article_likes (user_id,article_id) VALUES (2,21);
+INSERT INTO article_likes (user_id,article_id) VALUES (2,23);
+INSERT INTO article_likes (user_id,article_id) VALUES (2,24);
+INSERT INTO article_likes (user_id,article_id) VALUES (2,26);
+INSERT INTO article_likes (user_id,article_id) VALUES (2,27);
+INSERT INTO article_likes (user_id,article_id) VALUES (2,29);
+INSERT INTO article_likes (user_id,article_id) VALUES (2,30);
+INSERT INTO article_likes (user_id,article_id) VALUES (3,1);
+INSERT INTO article_likes (user_id,article_id) VALUES (3,2);
+INSERT INTO article_likes (user_id,article_id) VALUES (3,4);
+INSERT INTO article_likes (user_id,article_id) VALUES (3,5);
+INSERT INTO article_likes (user_id,article_id) VALUES (3,7);
+INSERT INTO article_likes (user_id,article_id) VALUES (3,8);
+INSERT INTO article_likes (user_id,article_id) VALUES (3,10);
+INSERT INTO article_likes (user_id,article_id) VALUES (3,11);
+INSERT INTO article_likes (user_id,article_id) VALUES (3,13);
+INSERT INTO article_likes (user_id,article_id) VALUES (3,14);
+INSERT INTO article_likes (user_id,article_id) VALUES (3,16);
+INSERT INTO article_likes (user_id,article_id) VALUES (3,17);
+INSERT INTO article_likes (user_id,article_id) VALUES (3,19);
+INSERT INTO article_likes (user_id,article_id) VALUES (3,20);
+INSERT INTO article_likes (user_id,article_id) VALUES (3,22);
+INSERT INTO article_likes (user_id,article_id) VALUES (3,23);
+INSERT INTO article_likes (user_id,article_id) VALUES (3,25);
+INSERT INTO article_likes (user_id,article_id) VALUES (3,26);
+INSERT INTO article_likes (user_id,article_id) VALUES (3,28);
+INSERT INTO article_likes (user_id,article_id) VALUES (3,29);
+INSERT INTO article_likes (user_id,article_id) VALUES (4,1);
+INSERT INTO article_likes (user_id,article_id) VALUES (4,3);
+INSERT INTO article_likes (user_id,article_id) VALUES (4,4);
+INSERT INTO article_likes (user_id,article_id) VALUES (4,6);
+INSERT INTO article_likes (user_id,article_id) VALUES (4,7);
+INSERT INTO article_likes (user_id,article_id) VALUES (4,9);
+INSERT INTO article_likes (user_id,article_id) VALUES (4,10);
+INSERT INTO article_likes (user_id,article_id) VALUES (4,12);
+INSERT INTO article_likes (user_id,article_id) VALUES (4,13);
+INSERT INTO article_likes (user_id,article_id) VALUES (4,15);
+INSERT INTO article_likes (user_id,article_id) VALUES (4,16);
+INSERT INTO article_likes (user_id,article_id) VALUES (4,18);
+INSERT INTO article_likes (user_id,article_id) VALUES (4,19);
+INSERT INTO article_likes (user_id,article_id) VALUES (4,21);
+INSERT INTO article_likes (user_id,article_id) VALUES (4,22);
+INSERT INTO article_likes (user_id,article_id) VALUES (4,24);
+INSERT INTO article_likes (user_id,article_id) VALUES (4,25);
+INSERT INTO article_likes (user_id,article_id) VALUES (4,27);
+INSERT INTO article_likes (user_id,article_id) VALUES (4,28);
+INSERT INTO article_likes (user_id,article_id) VALUES (4,30);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (1,1,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (2,2,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (3,3,1);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (4,4,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (5,5,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (6,6,1);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (7,7,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (8,8,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (1,9,1);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (2,10,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (3,11,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (4,12,1);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (5,13,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (6,14,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (7,15,1);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (8,16,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (1,17,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (2,18,1);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (3,19,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (4,20,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (5,21,1);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (6,22,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (7,23,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (8,24,1);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (1,25,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (2,26,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (3,27,1);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (4,28,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (5,29,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (6,30,1);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (1,31,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (2,32,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (3,33,1);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (4,34,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (5,35,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (6,36,1);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (7,37,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (8,38,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (1,39,1);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (2,40,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (3,41,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (4,42,1);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (5,43,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (6,44,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (7,45,1);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (8,46,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (1,47,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (2,48,1);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (3,49,0);
+INSERT INTO comment_notifications (user_id,comment_id,is_read) VALUES (4,50,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (2,1,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (3,1,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (5,1,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (8,1,1);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (1,2,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (4,2,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (6,2,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (1,3,1);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (7,3,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (1,4,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (5,4,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (8,4,1);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (2,5,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (6,5,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (2,6,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (7,6,1);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (3,7,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (5,7,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (8,7,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (4,8,1);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (2,9,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (3,9,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (5,9,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (8,9,1);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (1,10,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (4,10,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (6,10,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (1,11,1);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (7,11,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (1,12,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (5,12,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (8,12,1);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (2,13,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (6,13,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (2,14,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (7,14,1);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (3,15,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (5,15,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (8,15,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (4,16,1);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (2,17,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (3,17,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (5,17,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (8,17,1);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (1,18,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (4,18,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (6,18,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (1,19,1);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (7,19,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (1,20,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (5,20,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (8,20,1);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (2,21,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (6,21,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (2,22,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (7,22,1);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (3,23,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (5,23,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (8,23,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (4,24,1);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (2,25,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (3,25,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (5,25,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (8,25,1);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (1,26,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (4,26,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (6,26,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (1,27,1);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (7,27,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (1,28,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (5,28,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (8,28,1);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (2,29,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (6,29,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (2,30,0);
+INSERT INTO subscription_notifications (user_id,article_id,is_read) VALUES (7,30,1);
