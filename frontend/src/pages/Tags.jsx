@@ -44,12 +44,6 @@ function Tags() {
 
     useEffect(() => {
 
-        setPage(1);
-
-    }, [tagId]);
-
-    useEffect(() => {
-
         const fetchTagArticles = async () => {
 
             try {
@@ -94,7 +88,10 @@ function Tags() {
 
             {tags.map((tag) => (
                 <p key={tag.tag_id}>
-                    <Link to={`/tags?tag_id=${tag.tag_id}`}>
+                    <Link
+                        to={`/tags?tag_id=${tag.tag_id}`}
+                        onClick={() => setPage(1)}
+                    >
                         {tag.name}
                     </Link>
                 </p>

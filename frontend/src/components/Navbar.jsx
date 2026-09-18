@@ -61,7 +61,6 @@ function Navbar() {
 
                 <Link
                     to="/login"
-                    className={location.pathname === "/login" ? "active" : ""}
                     onClick={() => alert("Please log in first.")}
                 >
                     Create Article
@@ -69,7 +68,6 @@ function Navbar() {
 
                 <Link
                     to="/login"
-                    className={location.pathname === "/login" ? "active" : ""}
                     onClick={() => alert("Please log in first.")}
                 >
                     Notifications
@@ -77,7 +75,6 @@ function Navbar() {
 
                 <Link
                     to="/login"
-                    className={location.pathname === "/login" ? "active" : ""}
                     onClick={() => alert("Please log in first.")}
                 >
                     My Profile
