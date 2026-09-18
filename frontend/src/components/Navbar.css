@@ -1,4 +1,11 @@
 .site-nav { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:7px; padding:20px 0; border-bottom:1px solid var(--line); }
+
 .site-nav a { padding:8px 13px; border-radius:8px; color:#4c5770; font-size:.9rem; font-weight:750; text-decoration:none; transition:background .18s,color .18s; }
-.site-nav a:first-child { color:#fff; background:var(--brand); box-shadow:0 5px 12px rgba(91,87,223,.2); } .site-nav a:hover { color:var(--brand); background:var(--brand-soft); } .site-nav a:first-child:hover { color:#fff; background:var(--brand-dark); }
+
+.site-nav a.active { color:#fff; background:var(--brand); box-shadow:0 5px 12px rgba(91,87,223,.2); }
+
+.site-nav a:hover { color:var(--brand); background:var(--brand-soft); }
+
+.site-nav a.active:hover { color:#fff; background:var(--brand-dark); }
+
 @media (max-width:600px) { .site-nav { justify-content:flex-start; padding:13px 0; gap:2px; } .site-nav a { padding:7px 9px; font-size:.8rem; } }

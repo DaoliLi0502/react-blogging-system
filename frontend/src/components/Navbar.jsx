@@ -38,20 +38,30 @@ function Navbar() {
 
         return (
             <nav className="site-nav">
-                <Link to="/articles">
+                <Link
+                    to="/articles"
+                    className={location.pathname === "/articles" ? "active" : ""}
+                >
                     Articles
                 </Link>
 
-                <Link to="/search">
+                <Link
+                    to="/search"
+                    className={location.pathname === "/search" ? "active" : ""}
+                >
                     Search
                 </Link>
 
-                <Link to="/tags">
+                <Link
+                    to="/tags"
+                    className={location.pathname === "/tags" ? "active" : ""}
+                >
                     Tags
                 </Link>
 
                 <Link
                     to="/login"
+                    className={location.pathname === "/login" ? "active" : ""}
                     onClick={() => alert("Please log in first.")}
                 >
                     Create Article
@@ -59,6 +69,7 @@ function Navbar() {
 
                 <Link
                     to="/login"
+                    className={location.pathname === "/login" ? "active" : ""}
                     onClick={() => alert("Please log in first.")}
                 >
                     Notifications
@@ -66,12 +77,16 @@ function Navbar() {
 
                 <Link
                     to="/login"
+                    className={location.pathname === "/login" ? "active" : ""}
                     onClick={() => alert("Please log in first.")}
                 >
                     My Profile
                 </Link>
 
-                <Link to="/login">
+                <Link
+                    to="/login"
+                    className={location.pathname === "/login" ? "active" : ""}
+                >
                     Login
                 </Link>
             </nav>
@@ -80,27 +95,53 @@ function Navbar() {
 
     return (
         <nav className="site-nav">
-            <Link to="/articles">
+            <Link
+                to="/articles"
+                className={location.pathname === "/articles" ? "active" : ""}
+            >
                 Articles
             </Link>
 
-            <Link to="/articles/create">
+            <Link
+                to="/articles/create"
+                className={
+                    location.pathname === "/articles/create"
+                        ? "active"
+                        : ""
+                }
+            >
                 Create Article
             </Link>
 
-            <Link to="/notifications">
+            <Link
+                to="/notifications"
+                className={
+                    location.pathname === "/notifications"
+                        ? "active"
+                        : ""
+                }
+            >
                 Notifications
             </Link>
 
-            <Link to="/profile">
+            <Link
+                to="/profile"
+                className={location.pathname === "/profile" ? "active" : ""}
+            >
                 My Profile
             </Link>
 
-            <Link to="/search">
+            <Link
+                to="/search"
+                className={location.pathname === "/search" ? "active" : ""}
+            >
                 Search
             </Link>
 
-            <Link to="/tags">
+            <Link
+                to="/tags"
+                className={location.pathname === "/tags" ? "active" : ""}
+            >
                 Tags
             </Link>
         </nav>
