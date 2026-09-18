@@ -445,7 +445,7 @@ function ArticleDetail() {
                             <ul>
                                 {article.tags.map((tag) => (
                                     <li key={tag.tag_id}>
-                                        <Link to={`/search?tag_id=${tag.tag_id}`}>
+                                        <Link to={`/tags?tag_id=${tag.tag_id}`}>
                                             {tag.name}
                                         </Link>
 
