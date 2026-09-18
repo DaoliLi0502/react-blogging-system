@@ -34,7 +34,7 @@ function Navbar() {
     if (!isLoggedIn) {
 
         return (
-            <nav>
+            <nav className="site-nav">
                 <Link to="/articles">
                     Articles
                 </Link>
@@ -76,7 +76,7 @@ function Navbar() {
     }
 
     return (
-        <nav>
+        <nav className="site-nav">
             <Link to="/articles">
                 Articles
             </Link>

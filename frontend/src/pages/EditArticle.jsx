@@ -127,10 +127,10 @@ function EditArticle() {
     };
 
     return (
-        <div>
+        <div className="page editor-page">
             <h1>Edit Article</h1>
 
-            <form onSubmit={handleSubmit}>
+            <form className="editor-form" onSubmit={handleSubmit}>
 
                 <div>
                     <p>Title</p>

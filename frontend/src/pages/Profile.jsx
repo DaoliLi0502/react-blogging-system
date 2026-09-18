@@ -168,7 +168,7 @@ function Profile() {
     }
 
     return (
-        <div>
+        <div className="page profile-page">
             <h1>My Profile</h1>
 
             {errorMessage && (
@@ -185,7 +185,7 @@ function Profile() {
                 </p>
             </div>
 
-            <form onSubmit={handleUpdateProfile}>
+            <form className="profile-form" onSubmit={handleUpdateProfile}>
 
                 <div>
                     <label>
@@ -279,7 +279,7 @@ function Profile() {
                 />
             ))}
 
-            <div>
+            <div className="pagination">
                 <button
                     onClick={() => setPage(page - 1)}
                     disabled={page === 1}

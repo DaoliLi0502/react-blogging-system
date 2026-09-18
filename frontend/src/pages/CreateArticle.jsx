@@ -85,10 +85,10 @@ function CreateArticle() {
     };
 
     return (
-        <div>
+        <div className="page editor-page">
             <h1>Create Article</h1>
 
-            <form onSubmit={handleSubmit}>
+            <form className="editor-form" onSubmit={handleSubmit}>
 
                 <input
                     type="text"

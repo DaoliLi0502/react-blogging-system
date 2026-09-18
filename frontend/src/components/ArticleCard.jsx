@@ -3,7 +3,7 @@ import "./ArticleCard.css";
 
 function ArticleCard({ article }) {
     return (
-        <div>
+        <div className="article-card">
             <h2>
                 <Link to={`/articles/${article.article_id}`}>
                     {article.title}
@@ -18,13 +18,14 @@ function ArticleCard({ article }) {
             )}
 
             <div
+                className="article-card__excerpt"
                 dangerouslySetInnerHTML={{
                     __html: article.content
                 }}
             />
 
-            <p>Author: {article.username}</p>
-            <p>Date: {article.created_at}</p>
+            <p className="article-card__author">By {article.username}</p>
+            <p className="article-card__date">{article.created_at}</p>
         </div>
     );
 }

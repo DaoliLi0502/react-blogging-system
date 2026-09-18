@@ -42,7 +42,7 @@ function Login() {
     };
 
     return (
-        <div>
+        <div className="page auth-page">
             <h1>Login</h1>
 
             <input

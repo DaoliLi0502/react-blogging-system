@@ -80,7 +80,7 @@ function Tags() {
     }, [tagId, page]);
 
     return (
-        <div>
+        <div className="page tags-page">
             <h1>All Tags</h1>
 
             {errorMessage && <p>{errorMessage}</p>}
@@ -94,7 +94,7 @@ function Tags() {
             ))}
 
             {tagId && (
-                <div>
+                <section className="tag-results">
                     <h1>
                         {selectedTag
                             ? `Articles with tag: ${selectedTag.name}`
@@ -109,7 +109,7 @@ function Tags() {
                     ))}
 
                     {articles.length > 0 && (
-                        <div>
+                        <div className="pagination">
                             <button
                                 onClick={() => setPage(page - 1)}
                                 disabled={page === 1}
@@ -129,7 +129,7 @@ function Tags() {
                             </button>
                         </div>
                     )}
-                </div>
+                </section>
             )}
         </div>
     );

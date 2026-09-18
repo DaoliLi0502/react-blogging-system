@@ -75,7 +75,7 @@ function Signup() {
     };
 
     return (
-        <div>
+        <div className="page auth-page signup-page">
             <h1>Sign Up</h1>
 
             {errorMessage && (
@@ -86,7 +86,7 @@ function Signup() {
                 <p>{successMessage}</p>
             )}
 
-            <form onSubmit={handleSignup}>
+            <form className="profile-form" onSubmit={handleSignup}>
 
                 <div>
                     <label>

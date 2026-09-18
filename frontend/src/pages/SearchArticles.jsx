@@ -68,10 +68,10 @@ function SearchArticles() {
     };
 
     return (
-        <div>
+        <div className="page search-page">
             <h1>Search Articles</h1>
 
-            <form onSubmit={handleSearch}>
+            <form className="search-form" onSubmit={handleSearch}>
 
                 <div>
                     <label>
@@ -152,7 +152,7 @@ function SearchArticles() {
                 <p>{errorMessage}</p>
             )}
 
-            <div>
+            <div className="article-results">
                 {articles.map((article) => (
                     <ArticleCard
                         key={article.article_id}
@@ -162,7 +162,7 @@ function SearchArticles() {
             </div>
 
             {hasSearched && (
-                <div>
+                <div className="pagination">
                     <button
                         onClick={() => setPage(page - 1)}
                         disabled={page === 1}

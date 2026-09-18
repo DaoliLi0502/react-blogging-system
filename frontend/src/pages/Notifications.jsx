@@ -125,7 +125,7 @@ function Notifications() {
     }, []);
 
     return (
-        <div>
+        <div className="page notifications-page">
             <h1>Notifications</h1>
 
             {errorMessage && (

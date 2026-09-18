@@ -414,13 +414,13 @@ function ArticleDetail() {
         article.author_id === currentUser.user_id;
 
     return (
-        <div>
+        <div className="page article-detail-page">
             <h1>Article Detail</h1>
 
             {errorMessage && <p>{errorMessage}</p>}
 
             {article && (
-                <div>
+                <div className="article-detail">
                     <h2>{article.title}</h2>
 
                     {article.image_path && (

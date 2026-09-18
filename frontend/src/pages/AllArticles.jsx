@@ -38,7 +38,7 @@ function AllArticles() {
     }, [page]);
 
     return (
-        <div>
+        <div className="page articles-page">
             <h1>All Articles</h1>
 
             {errorMessage && <p>{errorMessage}</p>}
@@ -50,7 +50,7 @@ function AllArticles() {
                 />
             ))}
 
-            <div>
+            <div className="pagination">
                 <button
                     onClick={() => setPage(page - 1)}
                     disabled={page === 1}
