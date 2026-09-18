@@ -28,11 +28,6 @@ function Login() {
                 }
             );
 
-            localStorage.setItem(
-                "user",
-                JSON.stringify(response.data.user)
-            );
-
             navigate("/articles");
 
         } catch (error) {

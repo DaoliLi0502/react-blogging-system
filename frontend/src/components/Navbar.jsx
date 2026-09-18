@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import "./Navbar.css";
 
 function Navbar() {
+
+    const location = useLocation();
+
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
@@ -29,7 +32,7 @@ function Navbar() {
 
         fetchAuthStatus();
 
-    }, []);
+    }, [location.pathname]);
 
     if (!isLoggedIn) {
 
