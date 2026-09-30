@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import ArticleCard from "../components/ArticleCard";
+import API_URL from "../config";
 import "./Tags.css";
 
 function Tags() {
@@ -27,7 +28,7 @@ function Tags() {
             try {
 
                 const response = await axios.get(
-                    "http://localhost:3000/api/tags"
+                    `${API_URL}/api/tags`
                 );
 
                 setTags(response.data.tags);
@@ -49,7 +50,7 @@ function Tags() {
             try {
 
                 const response = await axios.get(
-                    `http://localhost:3000/api/tags/${tagId}/articles`,
+                    `${API_URL}/api/tags/${tagId}/articles`,
                     {
                         params: {
                             page,

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import API_URL from "../config";
 import "./ArticleCard.css";
 
 function ArticleCard({ article }) {
@@ -12,7 +13,7 @@ function ArticleCard({ article }) {
 
             {article.image_path && (
                 <img
-                    src={`http://localhost:3000${article.image_path}`}
+                    src={`${API_URL}${article.image_path}`}
                     alt={article.title}
                 />
             )}

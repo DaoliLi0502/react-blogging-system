@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import ArticleCard from "../components/ArticleCard";
+import API_URL from "../config";
 import "./Profile.css";
 
 function Profile() {
@@ -28,7 +29,7 @@ function Profile() {
         try {
 
             const response = await axios.get(
-                "http://localhost:3000/api/users/me",
+                `${API_URL}/api/users/me`,
                 {
                     withCredentials: true
                 }
@@ -65,7 +66,7 @@ function Profile() {
         try {
 
             const response = await axios.get(
-                "http://localhost:3000/api/articles/me",
+                `${API_URL}/api/articles/me`,
                 {
                     params: {
                         page,
@@ -89,7 +90,7 @@ function Profile() {
         try {
 
             const response = await axios.get(
-                "http://localhost:3000/api/avatars"
+                `${API_URL}/api/avatars`
             );
 
             setAvatars(response.data.avatars);
@@ -118,7 +119,7 @@ function Profile() {
         try {
 
             const response = await axios.put(
-                "http://localhost:3000/api/users/me",
+                `${API_URL}/api/users/me`,
                 {
                     real_name: realName,
                     date_of_birth: dateOfBirth,
@@ -147,7 +148,7 @@ function Profile() {
         try {
 
             await axios.post(
-                "http://localhost:3000/api/logout",
+                `${API_URL}/api/logout`,
                 {},
                 {
                     withCredentials: true
@@ -250,7 +251,7 @@ function Profile() {
                             />
 
                             <img
-                                src={`http://localhost:3000${avatar.image_path}`}
+                                src={`${API_URL}${avatar.image_path}`}
                                 alt="Avatar"
                                 width="80"
                             />

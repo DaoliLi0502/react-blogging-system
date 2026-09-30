@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ArticleCard from "../components/ArticleCard";
+import API_URL from "../config";
 import "./SearchArticles.css";
 
 function SearchArticles() {
@@ -23,7 +24,7 @@ function SearchArticles() {
         try {
 
             const response = await axios.get(
-                "http://localhost:3000/api/articles",
+                `${API_URL}/api/articles`,
                 {
                     params: {
                         search,

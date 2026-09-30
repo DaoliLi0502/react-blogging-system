@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_URL from "../config";
 import "./Notifications.css";
 
 function Notifications() {
@@ -16,7 +17,7 @@ function Notifications() {
         try {
 
             const response = await axios.get(
-                "http://localhost:3000/api/comment-notifications",
+                `${API_URL}/api/comment-notifications`,
                 {
                     withCredentials: true
                 }
@@ -35,7 +36,7 @@ function Notifications() {
         try {
 
             const response = await axios.get(
-                "http://localhost:3000/api/subscription-notifications",
+                `${API_URL}/api/subscription-notifications`,
                 {
                     withCredentials: true
                 }
@@ -54,7 +55,7 @@ function Notifications() {
         try {
 
             await axios.put(
-                `http://localhost:3000/api/comment-notifications/${notificationId}`,
+                `${API_URL}/api/comment-notifications/${notificationId}`,
                 {},
                 {
                     withCredentials: true
@@ -74,7 +75,7 @@ function Notifications() {
         try {
 
             await axios.put(
-                `http://localhost:3000/api/subscription-notifications/${notificationId}`,
+                `${API_URL}/api/subscription-notifications/${notificationId}`,
                 {},
                 {
                     withCredentials: true
@@ -98,7 +99,7 @@ function Notifications() {
             try {
 
                 await axios.get(
-                    "http://localhost:3000/api/users/me",
+                    `${API_URL}/api/users/me`,
                     {
                         withCredentials: true
                     }
@@ -143,7 +144,7 @@ function Notifications() {
 
                             {notification.avatar_path && (
                                 <img
-                                    src={`http://localhost:3000${notification.avatar_path}`}
+                                    src={`${API_URL}${notification.avatar_path}`}
                                     alt={notification.commenter_username}
                                     width="50"
                                 />
@@ -190,7 +191,7 @@ function Notifications() {
 
                             {notification.avatar_path && (
                                 <img
-                                    src={`http://localhost:3000${notification.avatar_path}`}
+                                    src={`${API_URL}${notification.avatar_path}`}
                                     alt={notification.author_username}
                                     width="50"
                                 />

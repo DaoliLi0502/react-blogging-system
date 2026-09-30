@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_URL from "../config";
 import "./Signup.css";
 
 function Signup() {
@@ -24,7 +25,7 @@ function Signup() {
         try {
 
             const response = await axios.get(
-                "http://localhost:3000/api/avatars"
+                `${API_URL}/api/avatars`
             );
 
             setAvatars(response.data.avatars);
@@ -51,7 +52,7 @@ function Signup() {
         try {
 
             const response = await axios.post(
-                "http://localhost:3000/api/users",
+                `${API_URL}/api/users`,
                 {
                     username,
                     password,
@@ -177,7 +178,7 @@ function Signup() {
                             />
 
                             <img
-                                src={`http://localhost:3000${avatar.image_path}`}
+                                src={`${API_URL}${avatar.image_path}`}
                                 alt="Avatar"
                                 width="80"
                             />

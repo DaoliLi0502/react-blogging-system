@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import API_URL from "../config";
 import "./CreateArticle.css";
 
 function CreateArticle() {
@@ -20,7 +21,7 @@ function CreateArticle() {
             try {
 
                 await axios.get(
-                    "http://localhost:3000/api/users/me",
+                    `${API_URL}/api/users/me`,
                     {
                         withCredentials: true
                     }
@@ -69,7 +70,7 @@ function CreateArticle() {
         try {
 
             await axios.post(
-                "http://localhost:3000/api/articles",
+                `${API_URL}/api/articles`,
                 formData,
                 {
                     withCredentials: true

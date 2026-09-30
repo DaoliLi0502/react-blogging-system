@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
+import API_URL from "../config";
 import "./Navbar.css";
 
 function Navbar() {
@@ -16,7 +17,7 @@ function Navbar() {
             try {
 
                 const response = await axios.get(
-                    "http://localhost:3000/api/status",
+                    `${API_URL}/api/status`,
                     {
                         withCredentials: true
                     }

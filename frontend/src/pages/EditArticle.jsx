@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import API_URL from "../config";
 import "./EditArticle.css";
 
 function EditArticle() {
@@ -25,14 +26,14 @@ function EditArticle() {
             try {
 
                 await axios.get(
-                    "http://localhost:3000/api/users/me",
+                    `${API_URL}/api/users/me`,
                     {
                         withCredentials: true
                     }
                 );
 
                 const response = await axios.get(
-                    `http://localhost:3000/api/articles/${aid}`
+                    `${API_URL}/api/articles/${aid}`
                 );
 
                 setArticle(response.data.article);
@@ -109,7 +110,7 @@ function EditArticle() {
         try {
 
             await axios.put(
-                `http://localhost:3000/api/articles/${aid}`,
+                `${API_URL}/api/articles/${aid}`,
                 formData,
                 {
                     withCredentials: true
@@ -206,7 +207,7 @@ function EditArticle() {
                                 <p>Current image:</p>
 
                                 <img
-                                    src={`http://localhost:3000${article.image_path}`}
+                                    src={`${API_URL}${article.image_path}`}
                                     alt="Current article"
                                     width="300"
                                 />

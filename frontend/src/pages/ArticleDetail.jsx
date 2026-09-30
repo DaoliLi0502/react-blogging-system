@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_URL from "../config";
 import "./ArticleDetail.css";
 
 function ArticleDetail() {
@@ -26,7 +27,7 @@ function ArticleDetail() {
         try {
 
             const response = await axios.get(
-                `http://localhost:3000/api/articles/${aid}`
+                `${API_URL}/api/articles/${aid}`
             );
 
             const articleData = response.data.article;
@@ -48,7 +49,7 @@ function ArticleDetail() {
         try {
 
             const response = await axios.get(
-                `http://localhost:3000/api/articles/${aid}/likes`,
+                `${API_URL}/api/articles/${aid}/likes`,
                 {
                     withCredentials: true
                 }
@@ -74,7 +75,7 @@ function ArticleDetail() {
         try {
 
             const response = await axios.get(
-                `http://localhost:3000/api/users/${authorId}/subscriptions`,
+                `${API_URL}/api/users/${authorId}/subscriptions`,
                 {
                     withCredentials: true
                 }
@@ -100,7 +101,7 @@ function ArticleDetail() {
         try {
 
             const response = await axios.get(
-                `http://localhost:3000/api/articles/${aid}/comments`
+                `${API_URL}/api/articles/${aid}/comments`
             );
 
             const commentsData = response.data.comments;
@@ -122,7 +123,7 @@ function ArticleDetail() {
         try {
 
             const response = await axios.get(
-                "http://localhost:3000/api/tags"
+                `${API_URL}/api/tags`
             );
 
             const tagsData = response.data.tags;
@@ -146,7 +147,7 @@ function ArticleDetail() {
             if (likedByMe) {
 
                 await axios.delete(
-                    `http://localhost:3000/api/articles/${aid}/likes`,
+                    `${API_URL}/api/articles/${aid}/likes`,
                     {
                         withCredentials: true
                     }
@@ -155,7 +156,7 @@ function ArticleDetail() {
             } else {
 
                 await axios.post(
-                    `http://localhost:3000/api/articles/${aid}/likes`,
+                    `${API_URL}/api/articles/${aid}/likes`,
                     {},
                     {
                         withCredentials: true
@@ -178,7 +179,7 @@ function ArticleDetail() {
             if (subscribedByMe) {
 
                 await axios.delete(
-                    `http://localhost:3000/api/subscriptions/${article.author_id}`,
+                    `${API_URL}/api/subscriptions/${article.author_id}`,
                     {
                         withCredentials: true
                     }
@@ -187,7 +188,7 @@ function ArticleDetail() {
             } else {
 
                 await axios.post(
-                    "http://localhost:3000/api/subscriptions",
+                    `${API_URL}/api/subscriptions`,
                     {
                         subscribed_user_id: article.author_id
                     },
@@ -212,7 +213,7 @@ function ArticleDetail() {
         try {
 
             await axios.post(
-                `http://localhost:3000/api/articles/${aid}/comments`,
+                `${API_URL}/api/articles/${aid}/comments`,
                 {
                     content: commentContent
                 },
@@ -244,7 +245,7 @@ function ArticleDetail() {
         try {
 
             await axios.delete(
-                `http://localhost:3000/api/articles/${aid}/comments/${commentId}`,
+                `${API_URL}/api/articles/${aid}/comments/${commentId}`,
                 {
                     withCredentials: true
                 }
@@ -267,7 +268,7 @@ function ArticleDetail() {
             }
 
             await axios.post(
-                `http://localhost:3000/api/articles/${aid}/tags`,
+                `${API_URL}/api/articles/${aid}/tags`,
                 {
                     tag_ids: [Number(selectedTagId)]
                 },
@@ -291,7 +292,7 @@ function ArticleDetail() {
         try {
 
             const response = await axios.post(
-                "http://localhost:3000/api/tags",
+                `${API_URL}/api/tags`,
                 {
                     name: newTagName
                 },
@@ -317,7 +318,7 @@ function ArticleDetail() {
         try {
 
             await axios.delete(
-                `http://localhost:3000/api/articles/${aid}/tags/${tagId}`,
+                `${API_URL}/api/articles/${aid}/tags/${tagId}`,
                 {
                     withCredentials: true
                 }
@@ -344,7 +345,7 @@ function ArticleDetail() {
         try {
 
             await axios.delete(
-                `http://localhost:3000/api/articles/${aid}`,
+                `${API_URL}/api/articles/${aid}`,
                 {
                     withCredentials: true
                 }
@@ -367,7 +368,7 @@ function ArticleDetail() {
             try {
 
                 const response = await axios.get(
-                    "http://localhost:3000/api/users/me",
+                    `${API_URL}/api/users/me`,
                     {
                         withCredentials: true
                     }
@@ -425,7 +426,7 @@ function ArticleDetail() {
 
                     {article.image_path && (
                         <img
-                            src={`http://localhost:3000${article.image_path}`}
+                            src={`${API_URL}${article.image_path}`}
                             alt={article.title}
                         />
                     )}
@@ -575,7 +576,7 @@ function ArticleDetail() {
 
                                     {comment.avatar_path && (
                                         <img
-                                            src={`http://localhost:3000${comment.avatar_path}`}
+                                            src={`${API_URL}${comment.avatar_path}`}
                                             alt={comment.username}
                                             width="50"
                                         />
