@@ -10,6 +10,7 @@ const notificationRoutes = require("./api/notifications");
 const subscriptionRoutes = require("./api/subscriptions");
 const tagRoutes = require("./api/tags");
 const userRoutes = require("./api/users");
+const uploadPath = process.env.UPLOAD_PATH || "uploads/";
 
 const app = express();
 
@@ -31,7 +32,7 @@ app.use("/api", tagRoutes);
 app.use("/api", userRoutes);
 
 app.use("/avatars", express.static("avatars"));
-app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static(uploadPath));
 
 const PORT = process.env.PORT || 3000;
 

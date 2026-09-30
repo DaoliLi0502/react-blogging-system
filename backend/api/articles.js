@@ -1,21 +1,27 @@
 const fs = require("fs/promises");
 const express = require("express");
 const multer = require("multer");
+
 const dbPromise = require("../db");
+
+const uploadPath = process.env.UPLOAD_PATH || "uploads/";
+
 const {
     authMiddleware,
     optionalAuthMiddleware
 } = require("../middleware/authMiddleware");
+
 const {
     createArticleSchema,
     updateArticleSchema
 } = require("../validation/articleValidation");
+
 const createCommentSchema = require("../validation/commentValidation");
 
 const router = express.Router();
 
 const upload = multer({
-    dest: "uploads/"
+    dest: uploadPath
 });
 
 router.get("/articles", async (req, res) => {
@@ -294,6 +300,7 @@ router.get("/articles/me", authMiddleware, async (req, res) => {
 router.get("/articles/:aid", async (req, res) => {
 
     try {
+
         const db = await dbPromise;
 
         const article = await db.get(
@@ -361,7 +368,7 @@ router.post("/articles", authMiddleware, upload.single("image"), async (req, res
         const db = await dbPromise;
 
         const imagePath = req.file
-            ? req.file.path
+            ? `/uploads/${req.file.filename}`
             : null;
 
         const result = await db.run(
@@ -469,7 +476,11 @@ router.put("/articles/:aid", authMiddleware, upload.single("image"), async (req,
             if (article.image_path) {
 
                 try {
-                    await fs.unlink(article.image_path);
+
+                    await fs.unlink(
+                        `${uploadPath}/${article.image_path.split("/").pop()}`
+                    );
+
                 } catch (error) {
 
                     if (error.code !== "ENOENT") {
@@ -478,14 +489,18 @@ router.put("/articles/:aid", authMiddleware, upload.single("image"), async (req,
                 }
             }
 
-            imagePath = req.file.path;
+            imagePath = `/uploads/${req.file.filename}`;
 
         } else if (remove_image) {
 
             if (article.image_path) {
 
                 try {
-                    await fs.unlink(article.image_path);
+
+                    await fs.unlink(
+                        `${uploadPath}/${article.image_path.split("/").pop()}`
+                    );
+
                 } catch (error) {
 
                     if (error.code !== "ENOENT") {
@@ -568,7 +583,11 @@ router.delete("/articles/:aid", authMiddleware, async (req, res) => {
         if (article.image_path) {
 
             try {
-                await fs.unlink(article.image_path);
+
+                await fs.unlink(
+                    `${uploadPath}/${article.image_path.split("/").pop()}`
+                );
+
             } catch (error) {
 
                 if (error.code !== "ENOENT") {
