@@ -1,11 +1,11 @@
 PRAGMA foreign_keys = ON;
 
-CREATE TABLE avatars (
+CREATE TABLE IF NOT EXISTS avatars (
     avatar_id INTEGER PRIMARY KEY AUTOINCREMENT,
     image_path TEXT NOT NULL
 );
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     user_id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL UNIQUE,
     password_hash TEXT NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE users (
     CHECK (is_admin IN (0, 1))
 );
 
-CREATE TABLE articles (
+CREATE TABLE IF NOT EXISTS articles (
     article_id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT NOT NULL,
     content TEXT NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE articles (
         ON DELETE CASCADE
 );
 
-CREATE TABLE comments (
+CREATE TABLE IF NOT EXISTS comments (
     comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
     article_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
@@ -51,12 +51,12 @@ CREATE TABLE comments (
         ON DELETE CASCADE
 );
 
-CREATE TABLE tags (
+CREATE TABLE IF NOT EXISTS tags (
     tag_id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL UNIQUE
 );
 
-CREATE TABLE article_likes (
+CREATE TABLE IF NOT EXISTS article_likes (
     user_id INTEGER NOT NULL,
     article_id INTEGER NOT NULL,
 
@@ -71,7 +71,7 @@ CREATE TABLE article_likes (
         ON DELETE CASCADE
 );
 
-CREATE TABLE article_tags (
+CREATE TABLE IF NOT EXISTS article_tags (
     article_id INTEGER NOT NULL,
     tag_id INTEGER NOT NULL,
 
@@ -86,7 +86,7 @@ CREATE TABLE article_tags (
         ON DELETE CASCADE
 );
 
-CREATE TABLE user_subscriptions (
+CREATE TABLE IF NOT EXISTS user_subscriptions (
     subscriber_id INTEGER NOT NULL,
     subscribed_user_id INTEGER NOT NULL,
 
@@ -103,7 +103,7 @@ CREATE TABLE user_subscriptions (
     CHECK (subscriber_id != subscribed_user_id)
 );
 
-CREATE TABLE comment_notifications (
+CREATE TABLE IF NOT EXISTS comment_notifications (
     comment_notification_id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
     comment_id INTEGER NOT NULL,
@@ -120,7 +120,7 @@ CREATE TABLE comment_notifications (
     CHECK (is_read IN (0, 1))
 );
 
-CREATE TABLE subscription_notifications (
+CREATE TABLE IF NOT EXISTS subscription_notifications (
     subscription_notification_id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
     article_id INTEGER NOT NULL,
