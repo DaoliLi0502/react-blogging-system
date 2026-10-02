@@ -1,6 +1,6 @@
 .site-nav { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:7px; margin:12px 0 0; padding:12px; border:1px solid rgba(229,233,242,.88); border-radius:14px; background:rgba(255,255,255,.82); box-shadow:0 8px 24px rgba(31,42,75,.1); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); }
 
-.site-nav a { padding:8px 13px; border-radius:8px; color:#26324b; font-size:.9rem; font-weight:800; text-decoration:none; text-shadow:0 1px 0 rgba(255,255,255,.75); transition:background .18s,color .18s; }
+.site-nav a { display:flex; align-items:center; justify-content:center; min-height:44px; padding:8px 13px; border-radius:8px; color:#26324b; font-size:.9rem; font-weight:800; text-align:center; text-decoration:none; text-shadow:0 1px 0 rgba(255,255,255,.75); transition:background .18s,color .18s; }
 
 .site-nav a.active { color:#fff; background:var(--brand); box-shadow:0 5px 12px rgba(91,87,223,.2); }
 
@@ -8,6 +8,8 @@
 
 .site-nav a.active:hover { color:#fff; background:var(--brand-dark); }
 
-@media (max-width:600px) { .site-nav { justify-content:flex-start; margin-top:8px; padding:9px; gap:2px; } .site-nav a { padding:7px 9px; font-size:.8rem; } }
-
-.site-nav a { display:flex; align-items:center; justify-content:center; min-height:40px; text-align:center; }
+/* Use the existing root-padding breakpoint for a deliberate wrapped layout. */
+@media (max-width:700px) {
+    .site-nav { justify-content:center; margin-top:8px; padding:8px; gap:4px; }
+    .site-nav a { flex:0 1 calc((100% - 8px) / 3); min-width:0; padding:6px 4px; font-size:.8rem; line-height:1.3; }
+}
