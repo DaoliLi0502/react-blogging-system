@@ -4,8 +4,8 @@ A full-stack React blogging application with an Express API and SQLite database.
 
 ## Live Demo
 
-- [Frontend on Railway](https://intuitive-dedication-production-72ad.up.railway.app)
-- [Backend on Railway](https://react-blogging-system-production.up.railway.app) (API routes are under `/api`)
+- [Frontend on Railway](https://blog.daolili.com)
+- [Backend on Railway](https://api.daolili.com) (API routes are under `/api`)
 
 Demonstration account:
 
@@ -156,12 +156,12 @@ Vite substitutes frontend variables during development/build. Set production fro
 
 ## Railway Deployment and Persistent Data
 
-The application is deployed as a [frontend](https://intuitive-dedication-production-72ad.up.railway.app) and [backend](https://react-blogging-system-production.up.railway.app) on Railway. The repository provides these deployment commands:
+The application is deployed as a [frontend](https://blog.daolili.com) and [backend](https://api.daolili.com) on Railway. The repository provides these deployment commands:
 
 - Backend, from `backend/`: install dependencies, initialize the target database with `npm run init-db` when needed, and run `npm start`.
 - Frontend, from `frontend/`: install dependencies, run `npm run build`, and run `npm start`. The start script serves `dist` with SPA fallback on `$PORT` using `serve`.
 
-Configure the production frontend with `VITE_API_URL=https://react-blogging-system-production.up.railway.app` and its TinyMCE key at build time. Configure the backend with `FRONTEND_URL=https://intuitive-dedication-production-72ad.up.railway.app`, `NODE_ENV=production`, and a private `JWT_SECRET`.
+Configure the production frontend with `VITE_API_URL=https://api.daolili.com` and its TinyMCE key at build time. Configure the backend with `FRONTEND_URL=https://blog.daolili.com`, `NODE_ENV=production`, and a private `JWT_SECRET`.
 
 `DB_PATH` can point to a SQLite file on persistent storage, and `UPLOAD_PATH` can point to a persistent directory for uploaded article images. The upload directory is used for creation, replacement, deletion, and serving at `/uploads`; stored image URLs remain `/uploads/<filename>`. Ensure storage paths exist and are writable, including the database parent directory.
 
