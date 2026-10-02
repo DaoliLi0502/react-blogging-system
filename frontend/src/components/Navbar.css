@@ -8,7 +8,7 @@
 
 .site-nav a.active:hover { color:#fff; background:var(--brand-dark); }
 
-/* Use the existing root-padding breakpoint for a deliberate wrapped layout. */
+
 @media (max-width:700px) {
     .site-nav { justify-content:center; margin-top:8px; padding:8px; gap:4px; }
     .site-nav a { flex:0 1 calc((100% - 8px) / 3); min-width:0; padding:6px 4px; font-size:.8rem; line-height:1.3; }

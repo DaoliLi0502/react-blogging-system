@@ -1,5 +1,5 @@
 .article-card { margin:0 0 20px; overflow:hidden; border:1px solid var(--line); border-radius:16px; background:var(--surface); box-shadow:0 8px 24px rgba(31,42,75,.06); transition:transform .2s,box-shadow .2s; }
-.article-card:hover { box-shadow:var(--shadow); transform:translateY(-2px); } .article-card h2 { margin:24px 26px 10px; line-height:1.22; } .article-card h2 a { color:var(--ink); text-decoration:none; } .article-card h2 a:hover { color:var(--brand); } .article-card > img { display:block; width:calc(100% - 52px); height:255px; margin:18px 26px; border-radius:11px; object-fit:cover; } .article-card__excerpt { margin:0 26px; color:var(--muted); } .article-card__excerpt p { display:-webkit-box; overflow:hidden; -webkit-box-orient:vertical; -webkit-line-clamp:3; } .article-card__author,.article-card__date { display:inline-block; margin:15px 0 20px 26px; font-size:.83rem; font-weight:700; } .article-card__date { margin-left:10px; padding-left:10px; border-left:1px solid var(--line); font-weight:500; } @media(max-width:600px){.article-card h2{margin:18px 18px 8px}.article-card>img{width:calc(100% - 36px);height:190px;margin:14px 18px}.article-card__excerpt{margin:0 18px}.article-card__author,.article-card__date{margin-left:18px;margin-bottom:16px}.article-card__date{margin-left:8px}}
+.article-card:hover { box-shadow:var(--shadow); transform:translateY(-2px); } .article-card h2 { margin:24px 26px 10px; line-height:1.22; } .article-card h2 a { color:var(--ink); text-decoration:none; } .article-card h2 a:hover { color:var(--brand); } .article-card > img { display:block; width:calc(100% - 52px); height:255px; margin:18px 26px; border-radius:11px; object-fit:cover; } .article-card__excerpt { margin:0 26px; color:var(--muted); } .article-card__excerpt p { display:-webkit-box; overflow:hidden; -webkit-box-orient:vertical; -webkit-line-clamp:3; line-clamp:3; } .article-card__author,.article-card__date { display:inline-block; margin:15px 0 20px 26px; font-size:.83rem; font-weight:700; } .article-card__date { margin-left:10px; padding-left:10px; border-left:1px solid var(--line); font-weight:500; } @media(max-width:600px){.article-card h2{margin:18px 18px 8px}.article-card>img{width:calc(100% - 36px);height:190px;margin:14px 18px}.article-card__excerpt{margin:0 18px}.article-card__author,.article-card__date{margin-left:18px;margin-bottom:16px}.article-card__date{margin-left:8px}}
 
 .article-card { min-width:0; }
 .article-card > img { object-fit:contain; background:var(--canvas); }
@@ -12,7 +12,7 @@
 .article-card__author,.article-card__date { max-width:calc(100% - 52px); vertical-align:top; }
 @media(max-width:600px) { .article-card__author,.article-card__date { max-width:calc(100% - 36px); } }
 
-/* All four collections reuse ArticleCard, including pages without a list wrapper. */
+
 @media (min-width:960px) {
     .articles-page,.search-page > .article-results,.tags-page > .tag-results,.profile-page {
         display:grid;
