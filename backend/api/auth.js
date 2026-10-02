@@ -6,6 +6,8 @@ const { authMiddleware } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
+const isProduction = process.env.NODE_ENV === "production";
+
 router.post("/login", async (req, res) => {
     const { username, password } = req.body;
 
@@ -56,8 +58,8 @@ router.post("/login", async (req, res) => {
 
         res.cookie("token", token, {
             httpOnly: true,
-            secure: false,
-            sameSite: "lax",
+            secure: isProduction,
+            sameSite: isProduction ? "none" : "lax",
             maxAge: 60 * 60 * 1000
         });
 
@@ -83,8 +85,8 @@ router.post("/login", async (req, res) => {
 router.post("/logout", authMiddleware, (req, res) => {
     res.cookie("token", "", {
         httpOnly: true,
-        secure: false,
-        sameSite: "lax",
+        secure: isProduction,
+        sameSite: isProduction ? "none" : "lax",
         maxAge: 0
     });
 
