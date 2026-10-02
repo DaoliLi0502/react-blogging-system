@@ -11,3 +11,34 @@ input,textarea,select { width:100%; padding:12px 13px; border:1px solid #d8deeb;
 .profile-form input[type="radio"],.editor-form input[type="radio"] { width:auto; accent-color:var(--brand); } .profile-form label:has(input[type="radio"]) { display:inline-flex; width:104px; margin:4px 8px 8px 0; padding:8px; align-items:center; justify-content:center; border:1px solid var(--line); border-radius:10px; background:#fafbff; cursor:pointer; } .profile-form label:has(input:checked) { border-color:var(--brand); background:var(--brand-soft); } .profile-form img { width:64px; height:64px; border-radius:50%; object-fit:cover; } .profile-form button,.editor-form > button { width:100%; }
 .auth-page { width:min(460px,100%); min-height:calc(100svh - 80px); display:flex; flex-direction:column; justify-content:center; padding:48px 0; } .auth-page h1 { text-align:center; } .auth-page > input { margin-bottom:13px; } .auth-page > button { width:100%; margin-top:6px; } .auth-page > p:last-child { text-align:center; } .auth-page > p a { font-weight:800; text-decoration:none; }
 @media (max-width:700px) { #root { padding:0 18px 36px; } .page { padding:30px 0; } .profile-form,.editor-form,.search-form { padding:20px; border-radius:13px; } .pagination { gap:8px; } .pagination button { padding:9px 12px; } .pagination span { min-width:auto; font-size:.88rem; } }
+
+/* Shared layout and control refinements. */
+h1,h2,h3,p,a { overflow-wrap:anywhere; }
+button,input,textarea,select { min-width:0; }
+button { min-height:42px; line-height:1.35; }
+input:not([type="radio"]):not([type="checkbox"]),select { min-height:46px; }
+input[type="radio"],input[type="checkbox"] { width:auto; flex-shrink:0; accent-color:var(--brand); }
+:where(a,button,input,textarea,select):focus-visible { outline:3px solid var(--brand); outline-offset:3px; }
+.pagination { flex-wrap:wrap; row-gap:10px; }
+.profile-form,.editor-form,.search-form { min-width:0; }
+.profile-form > div:has(input[type="radio"]) { display:flex; flex-wrap:wrap; gap:10px; align-items:stretch; }
+.profile-form > div:has(input[type="radio"]) > p { flex-basis:100%; margin:0; }
+.profile-form label:has(input[type="radio"]) { width:108px; min-height:82px; margin:0; gap:8px; padding:10px; font-size:.85rem; line-height:1.35; }
+.profile-form label:has(input[type="radio"]):hover { border-color:var(--brand); }
+.profile-form label:has(input:focus-visible) { outline:3px solid var(--brand); outline-offset:2px; }
+.profile-form img { width:52px; height:52px; }
+.editor-form > input[type="text"] { margin-bottom:18px; font-size:1.08rem; font-weight:650; }
+.editor-form input[type="file"] { margin:16px 0; border-style:dashed; background:var(--canvas); cursor:pointer; }
+.editor-form img { display:block; max-width:100%; height:auto; max-height:320px; object-fit:contain; margin-top:10px; border-radius:10px; }
+.editor-form .tox-tinymce { max-width:100%; min-width:0; border:1px solid var(--line)!important; border-radius:10px!important; overflow:hidden; }
+.editor-form .tox .tox-toolbar__primary { background:#fafbff!important; }
+.auth-page:not(.signup-page) { min-height:0; margin:48px auto 0; padding:32px; border:1px solid var(--line); border-radius:16px; background:var(--surface); box-shadow:var(--shadow); }
+.auth-page > p:last-child:has(a) { padding:0; border:0; color:var(--muted); background:transparent; }
+.profile-page > p,.signup-page > p { border-color:var(--line); color:var(--ink); background:var(--surface); }
+@media (max-width:700px) {
+    .auth-page:not(.signup-page) { margin-top:30px; padding:26px 20px; }
+    input[type="file"] { padding:10px; font-size:.88rem; }
+}
+@media (prefers-reduced-motion:reduce) {
+    *,*::before,*::after { transition:none!important; animation:none!important; scroll-behavior:auto!important; }
+}

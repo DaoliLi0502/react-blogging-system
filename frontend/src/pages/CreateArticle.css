@@ -1,1 +1,2 @@
-.editor-page { max-width:860px; }.editor-page > h1 { text-align:left; }.editor-form > input[type="text"] { margin-bottom:18px; font-size:1.08rem; font-weight:650; }.editor-form input[type="file"] { border-style:dashed; background:#fafbff; cursor:pointer; }.editor-form img { display:block; max-width:100%; margin-top:10px; border-radius:10px; }.tox-tinymce { border:1px solid var(--line)!important; border-radius:10px!important; overflow:hidden; }.tox .tox-toolbar__primary { background:#fafbff!important; }
+﻿.editor-page { max-width:860px; }
+.editor-page > h1 { text-align:left; }

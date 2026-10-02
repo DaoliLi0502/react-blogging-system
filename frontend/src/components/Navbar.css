@@ -9,3 +9,5 @@
 .site-nav a.active:hover { color:#fff; background:var(--brand-dark); }
 
 @media (max-width:600px) { .site-nav { justify-content:flex-start; margin-top:8px; padding:9px; gap:2px; } .site-nav a { padding:7px 9px; font-size:.8rem; } }
+
+.site-nav a { display:flex; align-items:center; justify-content:center; min-height:40px; text-align:center; }

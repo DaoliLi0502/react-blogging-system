@@ -1,1 +1,4 @@
 .tags-page > p { display:inline-block; margin:0 8px 10px 0; padding:0; border:0; background:none; }.tags-page > p a { display:block; padding:8px 13px; border:1px solid #dce0fa; border-radius:999px; color:var(--brand); background:#fff; font-size:.9rem; font-weight:700; text-decoration:none; }.tags-page > p a:hover { color:#fff; background:var(--brand); border-color:var(--brand); }.tag-results { margin-top:32px; padding-top:28px; border-top:1px solid var(--line); }.tag-results > h1 { font-size:1.7rem; text-align:left; }
+
+.tags-page > p:has(a) { max-width:100%; }
+.tags-page > p:not(:has(a)) { display:block; padding:11px 14px; border:1px solid #f0c4c8; border-radius:9px; background:#fff4f5; }

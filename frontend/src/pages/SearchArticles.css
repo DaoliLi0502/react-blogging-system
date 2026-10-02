@@ -1,1 +1,7 @@
 .search-form { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:18px; align-items:end; }.search-form > button { min-height:45px; }.article-results { margin-top:26px; } @media(max-width:700px){.search-form{grid-template-columns:1fr 1fr}.search-form>div:first-child,.search-form>button{grid-column:1/-1}} @media(max-width:430px){.search-form{grid-template-columns:1fr}}
+
+.search-form { grid-template-columns:minmax(0,2fr) repeat(3,minmax(0,1fr)); }
+.search-form > div { min-width:0; }
+.search-form > button { justify-self:start; min-width:120px; }
+@media(max-width:850px) { .search-form { grid-template-columns:repeat(2,minmax(0,1fr)); } .search-form > div:first-child,.search-form > button { grid-column:1/-1; } }
+@media(max-width:430px) { .search-form { grid-template-columns:minmax(0,1fr); } .search-form > button { width:100%; } }
